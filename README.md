@@ -7,7 +7,7 @@ Project Pembuatan Website dari matakuliah Pengembangan Aplikasi Web (TI501)
 
 - Abriansyah Adam 
 - Putri Habibah Devina Maharani (20220140109)
-- Ahmad Kevin Zain
+- Ahmad Kevin Zain (20220140130)
 - Ahmad Nur Hidayatullah
 - Luthfi Angger Ramdhani (20220140137)
 - Muhamad Farhan
