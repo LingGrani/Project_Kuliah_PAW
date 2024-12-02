@@ -11,6 +11,9 @@ app.set('view engine', 'ejs');
 app.set("layout", "./layouts/main");
 app.use(express.urlencoded({ extended: true }));
 
+// Access Static folder
+app.use(express.static("public"));
+
 // Route Home
 app.get('/', (req, res) => {
     res.render('index', {
