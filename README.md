@@ -2,6 +2,13 @@
 
 Project Pembuatan Website dari matakuliah Pengembangan Aplikasi Web (TI501)
 
+## Progress
+- Setup Project
+- install all dependency
+- setup folder structure
+
+## Next Dev
+- code starter pack.
 
 ## Nama Anggota Kelompok
 
