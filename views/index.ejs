@@ -10,7 +10,7 @@
           position: relative;
           color: white;
           text-align: center;
-          background: url('background.jpg') no-repeat center center/cover;
+          background: url('./assets/spiderman.jpg') no-repeat center center/cover;
           height: 600px;
         }
         .hero-section .overlay {
@@ -50,6 +50,10 @@
         }
         .trending-section .card img {
           border-radius: 10px;
+          width: 100%; /* Pastikan gambar memenuhi lebar card */
+            height: auto; /* Menjaga proporsi gambar */
+            max-height: 200px; /* Atur tinggi maksimum */
+            object-fit: cover;
         }
         .number-overlay {
           position: absolute;
@@ -89,14 +93,19 @@
           background-color: #222;
         }
         .category-card {
-          min-width: 200px;
-          flex: 0 0 auto;
-          background: #222;
-          border: none;
-          border-radius: 10px;
+            min-width: 250px; /* Ukuran lebih kecil */
+            flex: 0 0 auto;
+            background: #222;
+            border: none;
+            border-radius: 10px;
+            padding: 5px; /* Berikan padding kecil */
         }
         .category-card img {
-          border-radius: 10px;
+            border-radius: 10px;
+            width: 100%; /* Pastikan gambar memenuhi lebar card */
+            height: auto; /* Menjaga proporsi gambar */
+            max-height: 200px; /* Atur tinggi maksimum */
+            object-fit: cover; /* Agar gambar tetap proporsional */
         }
       </style>
     </head>
@@ -126,7 +135,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">1</div>
-                  <img src="wednesday.jpg" class="card-img-top" alt="Wednesday">
+                  <img src="./assets/image1.jpg" class="card-img-top" alt="Wednesday">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">1</h5>
@@ -137,7 +146,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">2</div>
-                  <img src="citadel.jpg" class="card-img-top" alt="Citadel">
+                  <img src="./assets/image2.jpg" class="card-img-top" alt="Citadel">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">2</h5>
@@ -148,7 +157,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">3</div>
-                  <img src="avatar.jpg" class="card-img-top" alt="Avatar">
+                  <img src="./assets/image3.jpg" class="card-img-top" alt="Avatar">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">3</h5>
@@ -159,7 +168,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">4</div>
-                  <img src="guardians.jpg" class="card-img-top" alt="Guardians of the Galaxy">
+                  <img src="./assets/image4.jpg" class="card-img-top" alt="Guardians of the Galaxy">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">4</h5>
@@ -170,7 +179,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">5</div>
-                  <img src="movie5.jpg" class="card-img-top" alt="Movie 5">
+                  <img src="./assets/image5.jpg" class="card-img-top" alt="Movie 5">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">5</h5>
@@ -181,7 +190,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">6</div>
-                  <img src="movie6.jpg" class="card-img-top" alt="Movie 6">
+                  <img src="./assets/image6.jpg" class="card-img-top" alt="Movie 6">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">6</h5>
@@ -198,46 +207,46 @@
         <!-- Action -->
         <h2>Action</h2>
         <div class="category-row">
-          <div class="category-card"><img src="action1.jpg" alt="Action 1" class="img-fluid"></div>
-          <div class="category-card"><img src="action2.jpg" alt="Action 2" class="img-fluid"></div>
-          <div class="category-card"><img src="action3.jpg" alt="Action 3" class="img-fluid"></div>
-          <div class="category-card"><img src="action4.jpg" alt="Action 4" class="img-fluid"></div>
-          <div class="category-card"><img src="action5.jpg" alt="Action 5" class="img-fluid"></div>
-          <div class="category-card"><img src="action6.jpg" alt="Action 6" class="img-fluid"></div>
-          <div class="category-card"><img src="action7.jpg" alt="Action 7" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image2.jpg" alt="Action 1" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image3.jpg" alt="Action 2" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image4.jpg" alt="Action 3" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image5.jpg" alt="Action 4" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image6.jpg" alt="Action 5" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image1.jpg" alt="Action 6" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image2.jpg" alt="Action 7" class="img-fluid"></div>
         </div>
         <!-- Romance & Drama -->
         <h2>Romance & Drama</h2>
         <div class="category-row">
-          <div class="category-card"><img src="romance1.jpg" alt="Romance 1" class="img-fluid"></div>
-          <div class="category-card"><img src="romance2.jpg" alt="Romance 2" class="img-fluid"></div>
-          <div class="category-card"><img src="romance3.jpg" alt="Romance 3" class="img-fluid"></div>
-          <div class="category-card"><img src="romance4.jpg" alt="Romance 4" class="img-fluid"></div>
-          <div class="category-card"><img src="romance5.jpg" alt="Romance 5" class="img-fluid"></div>
-          <div class="category-card"><img src="romance6.jpg" alt="Romance 6" class="img-fluid"></div>
-          <div class="category-card"><img src="romance7.jpg" alt="Romance 7" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/imageromance.jpg" alt="Romance 1" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image4.jpg" alt="Romance 2" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image5.jpg" alt="Romance 3" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image6.jpg" alt="Romance 4" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image1.jpg" alt="Romance 5" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image2.jpg" alt="Romance 6" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image3.jpg" alt="Romance 7" class="img-fluid"></div>
         </div>
         <!-- Comedy -->
         <h2>Comedy</h2>
         <div class="category-row">
-          <div class="category-card"><img src="comedy1.jpg" alt="Comedy 1" class="img-fluid"></div>
-          <div class="category-card"><img src="comedy2.jpg" alt="Comedy 2" class="img-fluid"></div>
-          <div class="category-card"><img src="comedy3.jpg" alt="Comedy 3" class="img-fluid"></div>
-          <div class="category-card"><img src="comedy4.jpg" alt="Comedy 4" class="img-fluid"></div>
-          <div class="category-card"><img src="comedy5.jpg" alt="Comedy 5" class="img-fluid"></div>
-          <div class="category-card"><img src="comedy6.jpg" alt="Comedy 6" class="img-fluid"></div>
-          <div class="category-card"><img src="comedy7.jpg" alt="Comedy 7" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/imagecomedy.jpg" alt="Comedy 1" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image5.jpg" alt="Comedy 2" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image6.jpg" alt="Comedy 3" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image1.jpg" alt="Comedy 4" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image2.jpg" alt="Comedy 5" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image3.jpg" alt="Comedy 6" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image4.jpg" alt="Comedy 7" class="img-fluid"></div>
         </div>
         <!-- Horror -->
         <h2>Horror</h2>
         <div class="category-row">
-          <div class="category-card"><img src="horror1.jpg" alt="Horror 1" class="img-fluid"></div>
-          <div class="category-card"><img src="horror2.jpg" alt="Horror 2" class="img-fluid"></div>
-          <div class="category-card"><img src="horror3.jpg" alt="Horror 3" class="img-fluid"></div>
-          <div class="category-card"><img src="horror4.jpg" alt="Horror 4" class="img-fluid"></div>
-          <div class="category-card"><img src="horror5.jpg" alt="Horror 5" class="img-fluid"></div>
-          <div class="category-card"><img src="horror6.jpg" alt="Horror 6" class="img-fluid"></div>
-          <div class="category-card"><img src="horror7.jpg" alt="Horror 7" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/imagehoror.jpg" alt="Horror 1" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image6.jpg" alt="Horror 2" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image1.jpg" alt="Horror 3" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image2.jpg" alt="Horror 4" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image3.jpg" alt="Horror 5" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image4.jpg" alt="Horror 6" class="img-fluid"></div>
+          <div class="category-card"><img src="./assets/image5.jpg" alt="Horror 7" class="img-fluid"></div>
         </div>
       </div>
     </div>
