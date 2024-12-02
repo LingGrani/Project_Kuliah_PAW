@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2024 at 06:13 PM
+-- Generation Time: Dec 02, 2024 at 06:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -105,7 +105,7 @@ CREATE TABLE `users` (
 CREATE TABLE `video` (
   `videoID` int(11) NOT NULL,
   `seasonID` int(11) NOT NULL,
-  `videoNumber` int(11) NOT NULL,
+  `videoLink` text NOT NULL,
   `title` text NOT NULL,
   `duration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -118,19 +118,22 @@ CREATE TABLE `video` (
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`adminID`);
+  ADD PRIMARY KEY (`adminID`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `genre`
 --
 ALTER TABLE `genre`
-  ADD PRIMARY KEY (`genreID`);
+  ADD PRIMARY KEY (`genreID`),
+  ADD UNIQUE KEY `genreName` (`genreName`);
 
 --
 -- Indexes for table `movie`
 --
 ALTER TABLE `movie`
-  ADD PRIMARY KEY (`movieID`);
+  ADD PRIMARY KEY (`movieID`),
+  ADD UNIQUE KEY `title` (`title`) USING HASH;
 
 --
 -- Indexes for table `moviegenre`
@@ -151,7 +154,8 @@ ALTER TABLE `season`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`userID`);
+  ADD PRIMARY KEY (`userID`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `video`
