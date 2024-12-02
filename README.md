@@ -6,9 +6,14 @@ Project Pembuatan Website dari matakuliah Pengembangan Aplikasi Web (TI501)
 - Setup Project
 - install all dependency
 - setup folder structure
+- Done with pages and  layouts
 
 ## Next Dev
-- code starter pack.
+- Routing
+- connect database
+- middleware (Authorization)
+- Oauth
+- Reusable Components.
 
 ## Nama Anggota Kelompok
 
