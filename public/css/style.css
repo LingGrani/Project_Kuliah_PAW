@@ -3,3 +3,49 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* Movies Page */
+body.movies-page {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+body.movies-page h1 {
+    margin-top: 150px;
+    text-align: center;
+}
+
+body.movies-page h2 {
+    margin-top: 150px;
+    margin-left: 30px;
+}
+
+body.movies-page .carousel-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 20px;
+    scroll-behavior: smooth;
+}
+
+body.movies-page .carousel-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+body.movies-page .carousel-container::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+}
+
+body.movies-page .thumbnail {
+    display: inline-block;
+    width: 200px;
+    height: auto;
+    margin-right: 15px;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+body.movies-page .thumbnail:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
