@@ -1,116 +1,5 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HomePage</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .hero-section {
-          position: relative;
-          color: white;
-          text-align: center;
-          background: url('./assets/spiderman.jpg') no-repeat center center/cover;
-          height: 600px;
-        }
-        .hero-section .overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.6);
-        }
-        .hero-content {
-          position: relative;
-          z-index: 1;
-          padding-top: 200px;
-        }
-        .hero-content h1 {
-          font-size: 3rem;
-          font-weight: bold;
-        }
-        .movie-details {
-          font-size: 1rem;
-          margin: 10px 0;
-        }
-        .movie-buttons .btn {
-          margin: 5px;
-          padding: 10px 20px;
-          font-size: 1.2rem;
-        }
-        .trending-section {
-          padding: 50px 0;
-          background: #000;
-          color: white;
-        }
-        .trending-section .card {
-          background: #222;
-          border: none;
-        }
-        .trending-section .card img {
-          border-radius: 10px;
-          width: 100%; /* Pastikan gambar memenuhi lebar card */
-            height: auto; /* Menjaga proporsi gambar */
-            max-height: 200px; /* Atur tinggi maksimum */
-            object-fit: cover;
-        }
-        .number-overlay {
-          position: absolute;
-          top: 10px;
-          left: -25px; /* Mengatur angka di sisi kiri */
-          background: #000;
-          color: white;
-          font-weight: bold;
-          font-size: 1.2rem;
-          padding: 5px 10px;
-          border-radius: 50%;
-          z-index: 10;
-        }
-        .category-section {
-          padding: 50px 0;
-          background: #111;
-          color: white;
-        }
-        .category-section h2 {
-          margin-bottom: 20px;
-        }
-        .category-row {
-          display: flex;
-          overflow-x: auto;
-          gap: 15px;
-          padding-bottom: 10px;
-          scroll-behavior: smooth;
-        }
-        .category-row::-webkit-scrollbar {
-          height: 8px;
-        }
-        .category-row::-webkit-scrollbar-thumb {
-          background-color: #444;
-          border-radius: 10px;
-        }
-        .category-row::-webkit-scrollbar-track {
-          background-color: #222;
-        }
-        .category-card {
-            min-width: 250px; /* Ukuran lebih kecil */
-            flex: 0 0 auto;
-            background: #222;
-            border: none;
-            border-radius: 10px;
-            padding: 5px; /* Berikan padding kecil */
-        }
-        .category-card img {
-            border-radius: 10px;
-            width: 100%; /* Pastikan gambar memenuhi lebar card */
-            height: auto; /* Menjaga proporsi gambar */
-            max-height: 200px; /* Atur tinggi maksimum */
-            object-fit: cover; /* Agar gambar tetap proporsional */
-        }
-      </style>
-    </head>
-    <body>
-      <!-- Hero Section -->
+<!-- Hero Section -->
+    <div style="background: url('./assets/spiderman.jpg')center/cover;">
       <div class="hero-section">
         <div class="overlay"></div>
         <div class="hero-content">
@@ -125,7 +14,7 @@
           </div>
         </div>
       </div>
-  
+    </div>
       <!-- Trending Section -->
       <div class="trending-section">
         <div class="container">
@@ -135,7 +24,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">1</div>
-                  <img src="./assets/image1.jpg" class="card-img-top" alt="Wednesday">
+                  <img src="./assets/image1.jpg" class="card-img-top" alt="Movie 1">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">1</h5>
@@ -146,7 +35,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">2</div>
-                  <img src="./assets/image2.jpg" class="card-img-top" alt="Citadel">
+                  <img src="./assets/image2.jpg" class="card-img-top" alt="Movie 2">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">2</h5>
@@ -157,7 +46,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">3</div>
-                  <img src="./assets/image3.jpg" class="card-img-top" alt="Avatar">
+                  <img src="./assets/image3.jpg" class="card-img-top" alt="Movie 3">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">3</h5>
@@ -168,7 +57,7 @@
               <div class="card text-center">
                 <div class="position-relative">
                   <div class="number-overlay">4</div>
-                  <img src="./assets/image4.jpg" class="card-img-top" alt="Guardians of the Galaxy">
+                  <img src="./assets/image4.jpg" class="card-img-top" alt="Movie 4">
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">4</h5>
@@ -197,60 +86,73 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-2">
+              <div class="card text-center">
+                <div class="position-relative">
+                  <div class="number-overlay">7</div>
+                  <img src="./assets/image7.jpg" class="card-img-top" alt="Movie 7">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">7</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card text-center">
+                <div class="position-relative">
+                  <div class="number-overlay">8</div>
+                  <img src="./assets/image4.jpg" class="card-img-top" alt="Movie 8">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">8</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card text-center">
+                <div class="position-relative">
+                  <div class="number-overlay">9</div>
+                  <img src="./assets/imagehoror.jpg" class="card-img-top" alt="Movie 9">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">9</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card text-center">
+                <div class="position-relative">
+                  <div class="number-overlay">10</div>
+                  <img src="./assets/imageromance.jpg" class="card-img-top" alt="Movie 10">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">10</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card text-center">
+                <div class="position-relative">
+                  <div class="number-overlay">11</div>
+                  <img src="https://www.stunningmesh.com/wp-content/uploads/2010/07/stunningmesh-horror85.jpg" class="card-img-top" alt="Movie 11">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">11</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card text-center">
+                <div class="position-relative">
+                  <div class="number-overlay">12</div>
+                  <img src="https://i.redd.it/6u9wzo3031m11.jpg" class="card-img-top" alt="Movie 12">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">12</h5>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-    <!-- Categories Section -->
-    <div class="category-section">
-      <div class="container">
-        <!-- Action -->
-        <h2>Action</h2>
-        <div class="category-row">
-          <div class="category-card"><img src="./assets/image2.jpg" alt="Action 1" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image3.jpg" alt="Action 2" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image4.jpg" alt="Action 3" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image5.jpg" alt="Action 4" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image6.jpg" alt="Action 5" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image1.jpg" alt="Action 6" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image2.jpg" alt="Action 7" class="img-fluid"></div>
-        </div>
-        <!-- Romance & Drama -->
-        <h2>Romance & Drama</h2>
-        <div class="category-row">
-          <div class="category-card"><img src="./assets/imageromance.jpg" alt="Romance 1" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image4.jpg" alt="Romance 2" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image5.jpg" alt="Romance 3" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image6.jpg" alt="Romance 4" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image1.jpg" alt="Romance 5" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image2.jpg" alt="Romance 6" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image3.jpg" alt="Romance 7" class="img-fluid"></div>
-        </div>
-        <!-- Comedy -->
-        <h2>Comedy</h2>
-        <div class="category-row">
-          <div class="category-card"><img src="./assets/imagecomedy.jpg" alt="Comedy 1" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image5.jpg" alt="Comedy 2" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image6.jpg" alt="Comedy 3" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image1.jpg" alt="Comedy 4" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image2.jpg" alt="Comedy 5" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image3.jpg" alt="Comedy 6" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image4.jpg" alt="Comedy 7" class="img-fluid"></div>
-        </div>
-        <!-- Horror -->
-        <h2>Horror</h2>
-        <div class="category-row">
-          <div class="category-card"><img src="./assets/imagehoror.jpg" alt="Horror 1" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image6.jpg" alt="Horror 2" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image1.jpg" alt="Horror 3" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image2.jpg" alt="Horror 4" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image3.jpg" alt="Horror 5" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image4.jpg" alt="Horror 6" class="img-fluid"></div>
-          <div class="category-card"><img src="./assets/image5.jpg" alt="Horror 7" class="img-fluid"></div>
-        </div>
-      </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
