@@ -49,6 +49,13 @@ app.get('/series', (req, res) => {
     });
 });
 
+// Route Genre
+app.get('/genre', (req, res) => {
+    res.render('genre', {
+        title: "Genre"
+    })
+})
+
 // Starting app
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
