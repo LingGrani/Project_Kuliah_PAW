@@ -1,0 +1,54 @@
+.hero-section {
+    position: relative;
+    color: white;
+    text-align: center;
+    height: 600px;
+  }
+.hero-section .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+.hero-content {
+    position: relative;
+    padding-top: 200px;
+  }
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+.movie-details {
+    font-size: 1rem;
+    margin: 10px;
+  }
+.movie-buttons .btn {
+    margin: 15px;
+
+  }
+.trending-section {
+    padding: 50px 0;
+    background: #000;
+    color: white;
+    
+  }
+  .trending-section .row {
+    margin-bottom: 25px; /* Memberi jarak antar baris */
+  }  
+.trending-section .card img {
+    border-radius: 10px;
+    width: 100%; /* Pastikan gambar memenuhi lebar card */
+      height: auto; /* Menjaga proporsi gambar */
+      max-height: 250px; /* Atur tinggi maksimum */
+  }
+.number-overlay {
+      position: absolute;
+      top: 20px;
+      left: -25px; /* Mengatur angka di sisi kiri */
+      color: white;
+      font-weight: bold;
+      font-size: 5rem;
+      padding: 5px 10px;
+      border-radius: 50%;
+      z-index: 10;
+  }

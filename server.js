@@ -49,12 +49,21 @@ app.get('/series', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 // Route Seriess
 app.get('/seriess', (req, res) => {
     res.render('components/seriess', {
         title: "Seriess"
     });
 });
+=======
+// Route Genre
+app.get('/genre', (req, res) => {
+    res.render('genre', {
+        title: "Genre"
+    })
+})
+>>>>>>> 6fe7c7051a0bc720487d21b0c26af66934384f66
 
 // Starting app
 app.listen(port, () => {
