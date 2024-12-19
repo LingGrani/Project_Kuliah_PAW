@@ -49,6 +49,13 @@ app.get('/series', (req, res) => {
     });
 });
 
+// Route Seriess
+app.get('/seriess', (req, res) => {
+    res.render('components/seriess', {
+        title: "Seriess"
+    });
+});
+
 // Starting app
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
