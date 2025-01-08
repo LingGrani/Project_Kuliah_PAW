@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2024 at 06:22 PM
+-- Generation Time: Jan 08, 2025 at 01:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,9 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `adminID` int(11) NOT NULL,
   `username` varchar(15) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -41,7 +40,7 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `genre` (
   `genreID` int(11) NOT NULL,
-  `genreName` varchar(100) NOT NULL
+  `genreName` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -52,11 +51,12 @@ CREATE TABLE `genre` (
 
 CREATE TABLE `movie` (
   `movieID` int(11) NOT NULL,
-  `title` text NOT NULL,
-  `description` text DEFAULT NULL,
-  `isSeries` tinyint(1) NOT NULL,
-  `releaseYear` int(11) NOT NULL,
-  `movieLenght` int(11) NOT NULL
+  `title` varchar(100) DEFAULT NULL,
+  `releaseYear` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `thumbnail` varbinary(2000) DEFAULT NULL,
+  `cbfc` varchar(10) DEFAULT NULL,
+  `series` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -66,21 +66,8 @@ CREATE TABLE `movie` (
 --
 
 CREATE TABLE `moviegenre` (
-  `movieGenreID` int(11) NOT NULL,
   `movieID` int(11) NOT NULL,
   `genreID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `season`
---
-
-CREATE TABLE `season` (
-  `seasonID` int(11) NOT NULL,
-  `movieID` int(11) NOT NULL,
-  `seasonNumber` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -90,10 +77,8 @@ CREATE TABLE `season` (
 --
 
 CREATE TABLE `users` (
-  `userID` int(11) NOT NULL,
-  `username` varchar(15) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `password` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -104,10 +89,24 @@ CREATE TABLE `users` (
 
 CREATE TABLE `video` (
   `videoID` int(11) NOT NULL,
-  `seasonID` int(11) NOT NULL,
-  `videoLink` text NOT NULL,
-  `title` text NOT NULL,
-  `duration` int(11) NOT NULL
+  `movieID` int(11) DEFAULT NULL,
+  `videoTitle` varchar(255) DEFAULT NULL,
+  `episodeNumber` int(11) DEFAULT NULL,
+  `duration` time DEFAULT NULL,
+  `videoLink` varchar(255) DEFAULT NULL,
+  `seasonIndex` int(11) DEFAULT NULL,
+  `thumbnail` varbinary(2000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `watchlist`
+--
+
+CREATE TABLE `watchlist` (
+  `movieID` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -118,97 +117,46 @@ CREATE TABLE `video` (
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`adminID`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `genre`
 --
 ALTER TABLE `genre`
-  ADD PRIMARY KEY (`genreID`),
-  ADD UNIQUE KEY `genreName` (`genreName`);
+  ADD PRIMARY KEY (`genreID`);
 
 --
 -- Indexes for table `movie`
 --
 ALTER TABLE `movie`
-  ADD PRIMARY KEY (`movieID`),
-  ADD UNIQUE KEY `title` (`title`) USING HASH;
+  ADD PRIMARY KEY (`movieID`);
 
 --
 -- Indexes for table `moviegenre`
 --
 ALTER TABLE `moviegenre`
-  ADD PRIMARY KEY (`movieGenreID`),
-  ADD KEY `movieid` (`movieID`),
-  ADD KEY `genreid` (`genreID`);
-
---
--- Indexes for table `season`
---
-ALTER TABLE `season`
-  ADD PRIMARY KEY (`seasonID`),
-  ADD KEY `movieid` (`movieID`);
+  ADD PRIMARY KEY (`movieID`,`genreID`),
+  ADD KEY `genreID` (`genreID`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`userID`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD PRIMARY KEY (`email`);
 
 --
 -- Indexes for table `video`
 --
 ALTER TABLE `video`
   ADD PRIMARY KEY (`videoID`),
-  ADD KEY `seasonid` (`seasonID`);
+  ADD KEY `movieID` (`movieID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `watchlist`
 --
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `adminID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `genre`
---
-ALTER TABLE `genre`
-  MODIFY `genreID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `movie`
---
-ALTER TABLE `movie`
-  MODIFY `movieID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `moviegenre`
---
-ALTER TABLE `moviegenre`
-  MODIFY `movieGenreID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `season`
---
-ALTER TABLE `season`
-  MODIFY `seasonID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `video`
---
-ALTER TABLE `video`
-  MODIFY `videoID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `watchlist`
+  ADD PRIMARY KEY (`movieID`,`email`),
+  ADD KEY `email` (`email`);
 
 --
 -- Constraints for dumped tables
@@ -218,20 +166,21 @@ ALTER TABLE `video`
 -- Constraints for table `moviegenre`
 --
 ALTER TABLE `moviegenre`
-  ADD CONSTRAINT `moviegenre_ibfk_1` FOREIGN KEY (`movieid`) REFERENCES `movie` (`movieid`),
-  ADD CONSTRAINT `moviegenre_ibfk_2` FOREIGN KEY (`genreid`) REFERENCES `genre` (`genreid`);
-
---
--- Constraints for table `season`
---
-ALTER TABLE `season`
-  ADD CONSTRAINT `season_ibfk_1` FOREIGN KEY (`movieid`) REFERENCES `movie` (`movieid`);
+  ADD CONSTRAINT `moviegenre_ibfk_1` FOREIGN KEY (`movieID`) REFERENCES `movie` (`movieID`),
+  ADD CONSTRAINT `moviegenre_ibfk_2` FOREIGN KEY (`genreID`) REFERENCES `genre` (`genreID`);
 
 --
 -- Constraints for table `video`
 --
 ALTER TABLE `video`
-  ADD CONSTRAINT `video_ibfk_1` FOREIGN KEY (`seasonid`) REFERENCES `season` (`seasonid`);
+  ADD CONSTRAINT `video_ibfk_1` FOREIGN KEY (`movieID`) REFERENCES `movie` (`movieID`);
+
+--
+-- Constraints for table `watchlist`
+--
+ALTER TABLE `watchlist`
+  ADD CONSTRAINT `watchlist_ibfk_1` FOREIGN KEY (`movieID`) REFERENCES `movie` (`movieID`),
+  ADD CONSTRAINT `watchlist_ibfk_2` FOREIGN KEY (`email`) REFERENCES `users` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
