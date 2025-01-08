@@ -1,0 +1,226 @@
+.hero-section {
+position: relative;
+color: white;
+text-align: left; /* Mengatur teks rata kiri */
+height: 600px;
+display: flex; /* Gunakan Flexbox */
+align-items: center; /* Atur konten di tengah secara vertikal */
+padding-left: 50px; /* Memberikan padding untuk jarak dari kiri */
+padding-top: 200px;
+}
+.hero-section .overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.6);
+}
+.hero-content {
+position: relative;
+z-index: 1;
+max-width: 600px; /* Batasi lebar konten */
+}
+.hero-content h1 {
+font-size: 4rem;
+font-weight: bold;
+}
+.movie-details {
+font-size: 1rem;
+margin: 40px 0;
+}
+/* Styling untuk tombol dengan desain lebih menarik */
+.movie-buttons .btn {
+    margin: 5px;
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    margin-top: 2.5rem;
+    border-radius: 25px; /* Membuat tombol melengkung */
+    font-weight: bold; /* Menambahkan ketebalan teks */
+    transition: all 0.3s ease; /* Efek transisi saat hover */
+  }
+  
+  /* Tombol utama */
+  .movie-buttons .btn-primary {
+    background-color: whitesmoke; 
+    color: black; /* Teks putih */
+  }
+  
+  .movie-buttons .btn-primary:hover {
+    background-color: white; /* Warna putih gelap lebih gelap saat hover */
+    transform: scale(1.1); /* Membesarkan sedikit tombol saat hover */
+  }
+  
+  /* Tombol outline */
+  .movie-buttons .btn-secondary {
+    background-color: rgb(36, 35, 35); /* Warna putih gelap lebih gelap saat hover */
+    color: white /* Teks putih gelap */
+  }
+  
+  .movie-buttons .btn-secondary:hover {
+    background-color: grey; /* Latar belakang putih gelap saat hover */
+    color: white; /* Teks berubah menjadi putih */
+    transform: scale(1.1); /* Membesarkan tombol sedikit */
+  }
+  
+  .d-flex .btn {
+    border-radius: 2rem; 
+    margin-bottom: 2rem;
+    padding: 10px 15px;
+    font-weight: bold;
+    color: black;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .d-flex .btn:hover {
+    background-color: white; /* Warna putih gelap lebih gelap saat hover */
+    transform: scale(1.1); /* Membesarkan tombol */
+  }
+  
+/* Mengubah warna latar belakang container */
+.trending-section{
+background-color: black;
+}
+
+.container {
+background-color: #000; /* Warna hitam */
+color: black; /* Mengubah teks menjadi putih untuk kontras */
+padding: 1px; /* Memberikan padding agar konten tidak menempel pada sisi container */
+border-radius: 10px; /* Menambahkan radius pada sudut */
+margin-left: 53px;
+}
+
+.category-roww {
+display: flex; /* Display items in a row */
+overflow-x: auto; /* Enable horizontal scrolling */
+gap: 20px; /* Space between the cards */
+padding: 10px 
+}
+
+.category-roww .col-md-2 {
+flex: 0 0 auto; /* Prevent the cards from shrinking */
+width: 220px; /* Set the width of the card */
+}
+
+.category-roww::-webkit-scrollbar {
+height: 8px;
+}
+
+.category-roww::-webkit-scrollbar-thumb {
+background-color: #444;
+border-radius: 10px;
+}
+
+.category-roww::-webkit-scrollbar-track {
+background-color: #222;
+}
+
+.d-flex {
+display: flex;
+justify-content: flex-start; /* Tombol akan berada di kiri */
+gap: 10px; /* Menambahkan jarak antar tombol */
+margin-top: 4rem;
+border-radius: 30px;
+}
+
+.card-body {
+padding: 15px;
+position: relative;
+}
+
+.card-title {
+font-size: 1.25rem;
+font-weight: bold;
+}
+
+
+.episode-description {
+margin-top: 10px;
+}
+
+.episode-text {
+color: white; /* Mengubah warna teks menjadi tomat */
+}
+
+.progress-bar {
+height: 3px;
+background-color: grey;
+margin-top: 5px;
+}
+
+.progress {
+height: 3px;
+background-color: white; 
+}
+
+h2 {
+font-size: 1.5rem;
+font-weight: bold;
+color: white;
+margin-bottom: 20px;
+}
+
+/* Adjustments for better card and image styling */
+.card-img-top {
+width: 100%;
+height: 180px;
+object-fit: cover;
+border-radius: 10px;
+}
+
+.card {
+background-color: black; /* Menjaga warna gelap pada card */
+border-radius: 10px;
+border: none;
+}
+
+.card-body {
+color: white;
+padding: 10px;
+background: #222;
+}
+
+.progress-bar .progress {
+transition: width 0.5s ease;
+}
+
+.category-section {
+ padding: 50px 0;
+ background: black;
+ color: white;
+}
+.category-section h2 {
+ margin-bottom: 20px;
+}
+.category-row {
+ display: flex;
+ overflow-x: auto;
+ gap: 20px;
+ padding-bottom: 30px;
+ scroll-behavior: smooth;
+}
+.category-row::-webkit-scrollbar {
+ height: 8px;
+}
+.category-row::-webkit-scrollbar-thumb {
+ background-color: #444;
+ border-radius: 10px;
+}
+.category-row::-webkit-scrollbar-track {
+ background-color: #222;
+}
+.category-card {
+   min-width: 250px; /* Ukuran lebih kecil */
+   flex: 0 0 auto;
+   background: #222;
+   border: none;
+   border-radius: 15px;
+   padding: 5px; /* Berikan padding kecil */
+}
+.category-card img {
+   border-radius: 10px;
+   width: 100%; /* Pastikan gambar memenuhi lebar card */
+   height: auto; /* Menjaga proporsi gambar */
+   max-height: 200px; /* Atur tinggi maksimum */
+   object-fit: cover; /* Agar gambar tetap proporsional */
+}

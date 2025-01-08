@@ -1,0 +1,126 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+}
+
+/* Login Container */
+.login-container {
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.1); /* Light transparent white */
+    color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: auto;
+    margin-top: 10%;
+    text-align: center;
+}
+
+/* Title */
+h1 {
+    color: #fff; /* White color for title */
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold; /* Added bold font for emphasis */
+}
+
+/* Error Message */
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-align: left; /* Aligning error message to the left */
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+/* Form Label */
+label {
+    display: block;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+/* Form Input */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 0.3rem;
+    border-radius: 5px;
+    border: 1px solid #ccc; /* Light border color */
+    background-color: #333; /* Dark background for inputs */
+    color: white;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+/* Input Focus */
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #fff; /* White border on focus */
+    outline: none;
+}
+
+/* Button */
+button[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    background-color: #fff; /* White background for button */
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button Hover */
+button[type="submit"]:hover {
+    background-color: #ccc; /* Light grey on hover */
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+/* Links */
+.register-text {
+    margin-top: 1rem;
+    color: #ccc; /* Light grey for text */
+}
+
+.register-link {
+    color: #fff; /* White color for the register link */
+    text-decoration: none;
+    font-weight: bold; /* Bold the link text */
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+/* Adjustments for Sign Up button */
+a button[type="button"] {
+    width: 100%;
+    padding: 1rem;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+a button[type="button"]:hover {
+    background-color: grey;
+    color: white;
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
