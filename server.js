@@ -180,6 +180,14 @@ app.get("/admindashboard", (req, res) => {
     });
 });
 
+// Routing Upload Admin
+app.get('/uploadadmin', (req, res) => {
+    res.render('admin/uploadadmin', {
+        title: "UploadAdmin",
+        isNavbarPage: true,
+        isFooterPage: true,
+    });
+});
 
 // Starting the app
 app.listen(port, () => {
