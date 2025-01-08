@@ -183,6 +183,7 @@ app.get("/admindashboard", (req, res) => {
 // Routing Upload Admin
 app.get('/uploadadmin', (req, res) => {
     res.render('admin/uploadadmin', {
+        layout: "layouts/admin-layout.ejs",
         title: "UploadAdmin",
         isNavbarPage: true,
         isFooterPage: true,
