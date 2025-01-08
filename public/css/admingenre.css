@@ -1,0 +1,24 @@
+
+  /* Genre Buttons */
+  .genre-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .genre-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .genre-btn:hover {
+    background-color: #bbb;
+    transform: scale(1.05);
+  }
+  

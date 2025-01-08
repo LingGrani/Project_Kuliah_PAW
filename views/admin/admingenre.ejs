@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genre Selection</title>
+  <link rel="stylesheet" href="/css/genre.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Genre</h1>
+    <form action="/submit-genre" method="POST" class="genre-form">
+      <input
+        type="text"
+        name="genre"
+        class="genre-input"
+        placeholder="Write genre name"
+      />
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+    <div class="genre-buttons">
+      <button class="genre-btn">Horror</button>
+      <button class="genre-btn">Romance</button>
+      <button class="genre-btn">Thriller</button>
+      <button class="genre-btn">Action</button>
+      <button class="genre-btn">Drama</button>
+    </div>
+  </div>
+</body>
+</html>

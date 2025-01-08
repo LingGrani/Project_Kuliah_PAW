@@ -191,6 +191,16 @@ app.get('/uploadadmin', (req, res) => {
     });
 });
 
+// Routing Genre Admin
+app.get('/admingenre', (req, res) => {
+    res.render('admin/admingenre', {
+        layout: "layouts/admin-layout.ejs",
+        title: "AdminGenre",
+        isNavbarPage: true,
+        isFooterPage: true,
+    });
+});
+
 
 // Routing All Movies
 app.get('/allmovie', (req, res) => {
