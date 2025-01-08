@@ -54,3 +54,52 @@
     width: auto;
   }
 }
+
+.footer-main {
+  background-color: black;
+  padding: 3rem 1rem;
+}
+
+.footer-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .url {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .url:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.footer-head {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  justify-items: center;
+}
+
+.divider {
+  color: white;
+}
+
+.footer-bottom {
+  margin-left: 3rem;
+  gap: 1rem;
+  display: flex;
+  color: rgba(255, 255, 255, 0.3);
+
+  .url-footer {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.3);
+  }
+}

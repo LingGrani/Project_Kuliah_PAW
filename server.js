@@ -16,6 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 // Access Static folder
 app.use(express.static("public"));
 
+// Route Group
+app.use('/admin', require('./routes/admin'));
+
 // Route Home
 app.get('/', (req, res) => {
     res.render('index', {
