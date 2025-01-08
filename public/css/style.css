@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 /* Movies Page */
 body.movies-page {
     background-color: black;
@@ -21,26 +22,19 @@ body.movies-page h2 {
 }
 
 body.movies-page .carousel-container {
-    overflow-x: auto;
-    white-space: nowrap;
+    display: flex; /* Menggunakan flexbox untuk tata letak horizontal */
+    justify-content: center; /* Elemen rata tengah */
+    gap: 15px; /* Jarak antar elemen */
     padding: 20px;
-    scroll-behavior: smooth;
-}
-
-body.movies-page .carousel-container::-webkit-scrollbar {
-    height: 8px;
-}
-
-body.movies-page .carousel-container::-webkit-scrollbar-thumb {
-    background: black;
-    border-radius: 10px;
+    overflow: hidden; /* Mencegah elemen meluap */
+    max-width: 100%; /* Batas maksimal lebar container */
+    flex-wrap: wrap; /* Membuat elemen thumbnail turun ke baris baru jika terlalu banyak */
 }
 
 body.movies-page .thumbnail {
-    display: inline-block;
+    flex: 0 0 auto; /* Thumbnail tetap berukuran tetap */
     width: 200px;
     height: auto;
-    margin-right: 15px;
     border-radius: 10px;
     transition: transform 0.3s;
 }
@@ -48,4 +42,9 @@ body.movies-page .thumbnail {
 body.movies-page .thumbnail:hover {
     transform: scale(1.1);
     cursor: pointer;
+}
+
+/* Batasi jumlah thumbnail yang ditampilkan */
+body.movies-page .carousel-container .thumbnail:nth-child(n+9) {
+    display: none; /* Sembunyikan thumbnail setelah yang ke-6 */
 }

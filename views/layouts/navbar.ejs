@@ -20,12 +20,41 @@
       class="search-btn"
       placeholder="Search Movies, Series..."
     />
-    <div>
+    <div class="profile-dropdown">
       <img
         class="profile-img"
         src="/assets/profile-picture.png"
         alt="Profile img"
+        id="profile-trigger"
       />
+      <div class="dropdown-menu">
+        <a href="/watchlist" class="dropdown-item">
+          <i class="fas fa-bookmark"></i> Watchlist
+        </a>
+        <a href="/logout" class="dropdown-item">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </a>
+      </div>
     </div>
   </div>
 </header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const profileDropdown = document.querySelector(".profile-dropdown");
+  const profileTrigger = document.getElementById("profile-trigger");
+
+  // Toggle dropdown visibility on click
+  profileTrigger.addEventListener("click", () => {
+    profileDropdown.classList.toggle("active");
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (event) => {
+    if (!profileDropdown.contains(event.target)) {
+      profileDropdown.classList.remove("active");
+    }
+  });
+});
+
+</script>

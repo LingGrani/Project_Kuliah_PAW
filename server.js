@@ -33,6 +33,19 @@ app.get('/login', (req, res) => {
     });
 });
 
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Logika autentikasi sederhana
+    if (username === 'user' && password === 'password') {
+        // Login berhasil, arahkan ke halaman index
+        res.redirect('/');
+    } else {
+        // Login gagal, kembalikan ke halaman login dengan pesan kesalahan
+        res.status(401).send('Invalid username or password');
+    }
+});
+
 // Route Movies
 app.get('/movies', (req, res) => {
     res.render('movies', {
