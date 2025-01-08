@@ -95,6 +95,15 @@ app.get('/series', (req, res) => {
     });
 });
 
+// Route Movie
+app.get('/movie', (req, res) => {
+    res.render('components/movie', {
+        title: "Movie",
+        isNavbarPage: false,
+        isFooterPage: false,
+    });
+});
+
 // Route Seriess (Note: Make sure this is intentional, as `/seriess` might be a typo)
 app.get('/seriess', (req, res) => {
     res.render('components/seriess', {
@@ -170,7 +179,6 @@ app.get("/admindashboard", (req, res) => {
         isFooterPage: true,
     });
 });
-
 
 // Starting the app
 app.listen(port, () => {
