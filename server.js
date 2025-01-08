@@ -22,14 +22,16 @@ app.use('/admin', require('./routes/admin'));
 // Route Home
 app.get('/', (req, res) => {
     res.render('index', {
-        title: "HomePage"
+        title: "HomePage",
+        isAdminPage: false,
     });
 });
 
 // Route Login
 app.get('/login', (req, res) => {
     res.render('login', {
-        title: "Login"
+        title: "Login",
+        isAdminPage: true,
     });
 });
 
@@ -49,42 +51,48 @@ app.post('/login', (req, res) => {
 // Route Movies
 app.get('/movies', (req, res) => {
     res.render('movies', {
-        title: "Movie"
+        title: "Movie",
+        isAdminPage: false,
     });
 });
 
 // Route Genre
 app.get('/genre', (req, res) => {
     res.render('genre', {
-        title: "Genre"
+        title: "Genre",
+        isAdminPage: false,
     });
 });
 
 // Route Watchlist
 app.get('/watchlist', (req, res) => {
     res.render('watchlist', {
-        title: "Watchlist"
+        title: "Watchlist",
+        isAdminPage: false,
     });
 });
 
 // Route Register
 app.get('/register', (req, res) => {
     res.render('register', {
-        title: "Register"
+        title: "Register",
+        isAdminPage: true,
     });
 });
 
 // Route Series
 app.get('/series', (req, res) => {
     res.render('series', {
-        title: "Series"
+        title: "Series",
+        isAdminPage: false,
     });
 });
 
 // Route Seriess (Note: Make sure this is intentional, as `/seriess` might be a typo)
 app.get('/seriess', (req, res) => {
     res.render('components/seriess', {
-        title: "Seriess"
+        title: "Seriess",
+        isAdminPage: false,
     });
 });
 
@@ -95,7 +103,8 @@ app.get('/adminlogin', (req, res) => {
     res.render('adminlogin', {
         title: "Admin Login",
         error: error,
-        redirect: redirect  // Pass redirect to the view
+        redirect: redirect,  // Pass redirect to the view
+        isAdminPage: true,
     });
 });
 
@@ -106,47 +115,51 @@ app.get('/adminregister', (req, res) => {
     res.render('adminregister', {
         title: "Admin Register",
         error: error,
-        redirect: redirect  // Pass redirect to the view
+        redirect: redirect,  // Pass redirect to the view
+        isAdminPage: true,
     });
 });
 
+// Route Admin Dashboard
 app.get("/admindashboard", (req, res) => {
     const visitors = 5000; // Example data for visitors
     const topMovies = [
-      {
-        _id: "1",
-        image: "movie1.jpg",
-        name: "Movie 1",
-        year: "2024",
-        numReviews: 150,
-      },
-      {
-        _id: "2",
-        image: "movie2.jpg",
-        name: "Movie 2",
-        year: "2023",
-        numReviews: 200,
-      },
+        {
+            _id: "1",
+            image: "movie1.jpg",
+            name: "Movie 1",
+            year: "2024",
+            numReviews: 150,
+        },
+        {
+            _id: "2",
+            image: "movie2.jpg",
+            name: "Movie 2",
+            year: "2023",
+            numReviews: 200,
+        },
     ];
     const allMovies = [
-      { numReviews: 150 },
-      { numReviews: 200 },
+        { numReviews: 150 },
+        { numReviews: 200 },
     ];
 
     const totalCommentsLength = allMovies?.map((m) => m.numReviews);
     const sumOfCommentsLength = totalCommentsLength?.reduce(
-      (acc, length) => acc + length,
-      0
+        (acc, length) => acc + length,
+        0
     );
 
     // Render the dashboard view and pass the title and other data
     res.render("admindashboard", {
-      title: "Admin Dashboard",  // Pass the title
-      visitors,
-      topMovies,
-      sumOfCommentsLength,
+        title: "Admin Dashboard",  // Pass the title
+        visitors,
+        topMovies,
+        sumOfCommentsLength,
+        isAdminPage: true, // Hide navbar on admin page
     });
 });
+
 
 // Starting the app
 app.listen(port, () => {

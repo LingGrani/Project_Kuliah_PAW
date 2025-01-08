@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title || 'Default Title' %></title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/homepage.css">
-  </head>
-  <body>
-    <%- include('./navbar.ejs') %> <%- body %> <%- include('./footer.ejs') %>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title || 'Default Title' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/homepage.css">
+</head>
+<body>
+
+  <!-- Conditionally include navbar based on the page type -->
+  <% if (!isAdminPage) { %>
+    <%- include('./navbar.ejs') %>
+  <% } %>
+
+  <%- body %> <!-- Main content -->
+  
+  <%- include('./footer.ejs') %> <!-- Footer -->
+
+</body>
 </html>
