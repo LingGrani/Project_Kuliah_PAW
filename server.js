@@ -191,6 +191,35 @@ app.get('/uploadadmin', (req, res) => {
     });
 });
 
+
+// Routing All Movies
+app.get('/allmovie', (req, res) => {
+    const movies = [
+        { image: '/assets/bglogin.jpg', title: 'Venom: Let There Be Carnage' },
+        { image: '/assets/bglogin.jpg', title: 'Placeholder Movie' },
+        { image: '/assets/bglogin.jpg', title: 'Another Placeholder Movie' },
+        { image: '/assets/bglogin.jpg', title: 'Another Placeholder Movie' },
+    ];
+
+    const series = [
+        { image: '/assets/demo.jpg', title: 'Hierarchy' },
+        { image: '/assets/demo.jpg', title: 'Placeholder Series' },
+        { image: '/assets/demo.jpg', title: 'Another Placeholder Series' },
+        { image: '/assets/demo.jpg', title: 'Another Placeholder Series' },
+    ];
+
+    res.render('admin/allmovie', {
+        layout: "layouts/admin-layout.ejs",  // Pastikan layout yang sesuai
+        title: "All Movies and Series",  // Judul halaman
+        movies,  // Data movies yang akan dikirim ke template
+        series,  // Data series yang akan dikirim ke template
+        isNavbarPage: true,  // Flag untuk menampilkan navbar
+        isFooterPage: true,  // Flag untuk menampilkan footer
+    });
+});
+
+
+
 // Starting the app
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);

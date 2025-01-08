@@ -1,0 +1,44 @@
+
+
+  <div class="container">
+    <h1 class="section-title" style="text-align: center;">All Movie & Series</h1>
+
+    <!-- Movies Section -->
+    <div class="section-header">
+      <h2 class="section-title">Movies :</h2>
+      <button class="more-btn" onclick="location.href='/movies'">More Movies &raquo;</button>
+    </div>
+    <div class="card-container">
+      <% movies.forEach(movie => { %>
+        <div class="card">
+          <img src="<%= movie.image %>" alt="<%= movie.title %>">
+          <div class="card-footer">
+            <select class="form-select">
+              <option selected><%= movie.title %></option>
+            </select>
+          </div>
+          <button class="update-btn">Update Movie</button>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Series Section -->
+    <div class="section-header">
+      <h2 class="section-title">Series :</h2>
+      <button class="more-btn" onclick="location.href='/series'">More Series &raquo;</button>
+    </div>
+    <div class="card-container">
+      <% series.forEach(serie => { %>
+        <div class="card">
+          <img src="<%= serie.image %>" alt="<%= serie.title %>">
+          <div class="card-footer">
+            <select class="form-select">
+              <option selected><%= serie.title %></option>
+            </select>
+          </div>
+          <button class="update-btn">Update Series</button>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
