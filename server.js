@@ -22,14 +22,18 @@ app.use('/admin', require('./routes/admin'));
 // Route Home
 app.get('/', (req, res) => {
     res.render('index', {
-        title: "HomePage"
+        title: "HomePage",
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
 // Route Login
 app.get('/login', (req, res) => {
     res.render('login', {
-        title: "Login"
+        title: "Login",
+        isNavbarPage: true,
+        isFooterPage: false,
     });
 });
 
@@ -49,28 +53,54 @@ app.post('/login', (req, res) => {
 // Route Movies
 app.get('/movies', (req, res) => {
     res.render('movies', {
-        title: "Movie"
+        title: "Movie",
+        isNavbarPage: false,
+        isFooterPage: false,
+    });
+});
+
+// Route Genre
+app.get('/genre', (req, res) => {
+    res.render('genre', {
+        title: "Genre",
+        isNavbarPage: false,
+        isFooterPage: false,
+    });
+});
+
+// Route Watchlist
+app.get('/watchlist', (req, res) => {
+    res.render('watchlist', {
+        title: "Watchlist",
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
 // Route Register
 app.get('/register', (req, res) => {
     res.render('register', {
-        title: "Register"
+        title: "Register",
+        isNavbarPage: true,
+        isFooterPage: false,
     });
 });
 
 // Route Series
 app.get('/series', (req, res) => {
     res.render('series', {
-        title: "Series"
+        title: "Series",
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
 // Route Seriess (Note: Make sure this is intentional, as `/seriess` might be a typo)
 app.get('/seriess', (req, res) => {
     res.render('components/seriess', {
-        title: "Seriess"
+        title: "Seriess",
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
@@ -81,7 +111,9 @@ app.get('/adminlogin', (req, res) => {
     res.render('adminlogin', {
         title: "Admin Login",
         error: error,
-        redirect: redirect  // Pass redirect to the view
+        redirect: redirect,  // Pass redirect to the view
+        isNavbarPage: true,
+        isFooterPage: false,
     });
 });
 
@@ -92,47 +124,53 @@ app.get('/adminregister', (req, res) => {
     res.render('adminregister', {
         title: "Admin Register",
         error: error,
-        redirect: redirect  // Pass redirect to the view
+        redirect: redirect,  // Pass redirect to the view
+        isNavbarPage: true,
+        isFooterPage: false,
     });
 });
 
+// Route Admin Dashboard
 app.get("/admindashboard", (req, res) => {
     const visitors = 5000; // Example data for visitors
     const topMovies = [
-      {
-        _id: "1",
-        image: "movie1.jpg",
-        name: "Movie 1",
-        year: "2024",
-        numReviews: 150,
-      },
-      {
-        _id: "2",
-        image: "movie2.jpg",
-        name: "Movie 2",
-        year: "2023",
-        numReviews: 200,
-      },
+        {
+            _id: "1",
+            image: "movie1.jpg",
+            name: "Movie 1",
+            year: "2024",
+            numReviews: 150,
+        },
+        {
+            _id: "2",
+            image: "movie2.jpg",
+            name: "Movie 2",
+            year: "2023",
+            numReviews: 200,
+        },
     ];
     const allMovies = [
-      { numReviews: 150 },
-      { numReviews: 200 },
+        { numReviews: 150 },
+        { numReviews: 200 },
     ];
 
     const totalCommentsLength = allMovies?.map((m) => m.numReviews);
     const sumOfCommentsLength = totalCommentsLength?.reduce(
-      (acc, length) => acc + length,
-      0
+        (acc, length) => acc + length,
+        0
     );
 
     // Render the dashboard view and pass the title and other data
     res.render("admindashboard", {
-      title: "Admin Dashboard",  // Pass the title
-      visitors,
-      topMovies,
-      sumOfCommentsLength,
+        title: "Admin Dashboard",  // Pass the title
+        visitors,
+        topMovies,
+        sumOfCommentsLength,
+        isNavbarPage: true, 
+        isFooterPage: true,
     });
 });
+
 
 // Starting the app
 app.listen(port, () => {
