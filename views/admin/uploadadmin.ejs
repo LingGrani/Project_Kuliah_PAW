@@ -1,43 +1,72 @@
-<div class="container">
-    <h1>Upload Movie / Series</h1>
+<div class="main-layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li class="sidebar-item active">
+          <a href="/admindashboard" class="sidebar-link">Dashboard</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/uploadadmin" class="sidebar-link">Upload</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/admin/create" class="sidebar-link">Create Genre</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/admin/create" class="sidebar-link">See All Movie & Series</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/admin/update" class="sidebar-link">Update Movie</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/admin/update" class="sidebar-link">Update Series</a>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Content -->
+    <div class="container">
+      <h1>Upload Movie / Series</h1>
+      <form>
         <label for="nama">Nama :</label>
         <input type="text" id="nama" name="nama" required>
-
+  
         <label for="tahun">Tahun :</label>
         <input type="number" id="tahun" name="tahun" required>
-
+  
         <label for="detail">Detail :</label>
         <textarea id="detail" name="detail" rows="4" required></textarea>
-
+  
         <label for="cast">Cast (comma separated) :</label>
         <input type="text" id="cast" name="cast" required>
-
+  
         <label for="genre">Genre :</label>
         <select id="genre" name="genre" required>
-            <option value="">Pilih Genre</option>
-            <!-- Genre akan diisi dari halaman manage genre -->
+          <option value="">Pilih Genre</option>
+          <!-- Genre akan diisi dari halaman manage genre -->
         </select>
-
+  
         <label for="type">Movie/Series</label>
         <select id="type" name="type" required>
-            <option value="movies">Movies</option>
-            <option value="series">Series</option>
+          <option value="movies">Movies</option>
+          <option value="series">Series</option>
         </select>
-
+  
         <label for="top">Top Movie/Series (opsional)</label>
         <select id="top" name="top">
-            <option value="">Masuk dalam top berapa (1-10)</option>
-            <script>
-                for (let i = 1; i <= 10; i++) {
-                    document.write(`<option value="${i}">${i}</option>`);
-                }
-            </script>
+          <option value="">Masuk dalam top berapa (1-10)</option>
+          <script>
+            for (let i = 1; i <= 10; i++) {
+              document.write(`<option value="${i}">${i}</option>`);
+            }
+          </script>
         </select>
-
+  
         <div class="buttons">
-            <button type="button" class="upload-btn" onclick="location.href='upload_file.html'">Upload File</button>
-            <button type="button" class="upload-btn" onclick="location.href='upload_thumbnail.html'">Upload Thumbnail</button>
-            <button type="submit" class="submit-btn">Upload Movie</button>
+          <button type="button" class="upload-btn" onclick="location.href='upload_file.html'">Upload File</button>
+          <button type="button" class="upload-btn" onclick="location.href='upload_thumbnail.html'">Upload Thumbnail</button>
+          <button type="submit" class="submit-btn">Upload Movie</button>
         </div>
-    </form>
-</div>
+      </form>
+    </div>
+  </div>
+  
