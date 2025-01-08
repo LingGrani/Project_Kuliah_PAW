@@ -171,6 +171,16 @@ app.get("/admindashboard", (req, res) => {
     });
 });
 
+// Route uploadadmin!
+app.get('/uploadadmin', (req, res) => {
+    res.render('admin/uploadadmin', {
+        title: "uploadadmin",
+        isNavbarPage: true,
+        isFooterPage: true,
+    });
+});
+
+
 
 // Starting the app
 app.listen(port, () => {
