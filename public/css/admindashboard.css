@@ -24,7 +24,7 @@ body {
 
 /* Main Content */
 .main-content {
-  margin-left: 250px;
+  margin-left: 50px;
   padding: 40px 30px;
   width: 100%;
   transition: margin-left 0.3s ease;
