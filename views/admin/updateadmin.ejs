@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>Update Movie</h1>
+        <label for="nama">Nama :</label>
+        <input type="text" id="nama" name="nama" required>
+
+        <label for="tahun">Tahun :</label>
+        <input type="number" id="tahun" name="tahun" required>
+
+        <label for="detail">Detail :</label>
+        <textarea id="detail" name="detail" rows="4" required></textarea>
+
+        <label for="cast">Cast (comma separated) :</label>
+        <input type="text" id="cast" name="cast" required>
+
+        <label for="genre">Genre :</label>
+        <select id="genre" name="genre" required>
+            <option value="">Pilih Genre</option>
+            <!-- Genre akan diisi dari halaman manage genre -->
+        </select>
+        <label for="top">Top Movie (opsional)</label>
+        <select id="top" name="top">
+            <option value="">Masuk dalam top berapa (1-10)</option>
+            <script>
+                for (let i = 1; i <= 10; i++) {
+                    document.write(`<option value="${i}">${i}</option>`);
+                }
+            </script>
+        </select>
+
+        <div class="buttons">
+            <button type="button" class="upload-btn" onclick="location.href='upload_file.html'">Upload New File</button>
+            <button type="submit" class="submit-btn">Update Movie</button>
+            <button type="submit" class="submit-btn" style="background-color: red;">Delete Movie</button>
+        </div>
+    </form>
+</div>

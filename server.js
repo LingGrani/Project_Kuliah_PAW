@@ -191,6 +191,16 @@ app.get('/uploadadmin', (req, res) => {
     });
 });
 
+// Routing Update Admin
+app.get('/updateadmin', (req, res) => {
+    res.render('admin/updateadmin', {
+        layout: "layouts/admin-layout.ejs",
+        title: "UpdateAdmin",
+        isNavbarPage: true,
+        isFooterPage: true,
+    });
+});
+
 // Routing Genre Admin
 app.get('/admingenre', (req, res) => {
     res.render('admin/admingenre', {
