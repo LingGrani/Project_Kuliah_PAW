@@ -22,44 +22,6 @@ body {
   transition: margin-left 0.3s ease;
 }
 
-/* Sidebar */
-.sidebar {
-  width: 200px;
-  background-color: #222;
-  padding: 20px 0;
-  position: start;
-  height: 100%;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.sidebar-item {
-  padding: 20px 20px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  border-radius: 5px;
-}
-
-.sidebar-item a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  display: block;
-}
-
-.sidebar-item:hover {
-  background-color: #444;
-  transform: scale(1.05);
-}
-
-.sidebar-item.active {
-  background-color: #333;
-}
-
 /* Main Content */
 .main-content {
   margin-left: 250px;

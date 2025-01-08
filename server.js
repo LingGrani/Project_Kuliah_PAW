@@ -170,7 +170,8 @@ app.get("/admindashboard", (req, res) => {
     );
 
     // Render the dashboard view and pass the title and other data
-    res.render("admindashboard", {
+    res.render("admin/admindashboard", {
+        layout: "layouts/admin-layout.ejs",
         title: "Admin Dashboard",  // Pass the title
         visitors,
         topMovies,
