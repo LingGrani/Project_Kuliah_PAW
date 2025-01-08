@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Genre Selection</title>
-  <link rel="stylesheet" href="/css/genre.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genre Form</title>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">Genre</h1>
-    <form id="genreAdd" class="genre-form">
-      <label for="titleGenre">Title Genre:</label><br>
-      <input type="text" id="title" name="title" required><br><br>
+    <h1>Add New Genre</h1>
+    <form id="genreAdd">
+        <label for="titleGenre">Title Genre:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
 
-      <button type="submit" class="submit-btn">Submit</button>
-  </form>
-  <div class="genre-buttons">
+        <button type="submit">Submit</button>
+    </form>
     <% genres.forEach(genre=> { %>
-      <button class="genre-btn"><%= genre.genreName %></button>
-      <% }); %>
-  </div>
+        <p><%= genre.genreName %></p>
+        <% }); %>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

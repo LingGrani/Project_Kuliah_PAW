@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload with Progress Bar</title>
+</head>
+<body>
+    <h1>Upload File</h1>
+    <form onsubmit="uploadFile(event)">
+        <label for="file">Choose file:</label>
+        <input type="file" id="file" name="file" required>
+        <br><br>
+        <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
+        <br><br>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+<script>
+    function uploadFile(event) {
+        event.preventDefault();
+        const fileInput = document.getElementById('file');
+        const progressBar = document.getElementById('progress-bar');
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://linggrani.com/uploads.php', true);
+
+        xhr.upload.onprogress = function(event) {
+            if (event.lengthComputable) {
+                const percentComplete = (event.loaded / event.total) * 100;
+                progressBar.value = percentComplete;
+            }
+        };
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert('File uploaded successfully!');
+                progressBar.value = 0;
+            } else {
+                alert('File upload failed: ' + xhr.statusText);
+            }
+        };
+
+        xhr.onerror = function() {
+            alert('An error occurred while uploading the file.');
+        };
+
+        xhr.send(formData);
+    }
+</script>
+</html>

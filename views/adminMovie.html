@@ -1,26 +1,25 @@
-<!-- Content -->
-    <div class="container" id="movieAdd">
-      <h1>Upload Movie / Series</h1>
-      <form>
-        <label for="nama">Nama :</label>
-        <input type="text" id="nama" name="nama" required>
-  
-        <label for="tahun">Tahun :</label>
-        <input type="number" id="tahun" name="tahun" required>
-  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Form</title>
+</head>
+<body>
+    <h1>Add New Movie</h1>
+    <form id="movieAdd">
+
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="releaseYear">Release Year:</label><br>
+        <input type="number" id="releaseYear" name="releaseYear" required><br><br>
+
         <label for="description">Description:</label><br>
         <textarea id="description" name="description"></textarea><br><br>
-  
+
         <label for="thumbnail">Thumbnail:</label><br>
         <input type="file" id="thumbnail" name="thumbnail" accept="image/*"><br><br>
-  
-        <label for="genre">Genre :</label>
-        <select id="genre" name="genre" required>
-          <option value="">Pilih Genre</option>
-          <% genres.forEach(genre=> { %>
-            <option value="<%= genre.genreID %>"><%= genre.genreName %></option>
-            <% }); %>
-        </select>
 
         <label for="cbfc">CBFC Rating:</label><br>
         <select id="cbfc" name="cbfc">
@@ -29,51 +28,32 @@
             <option value="A">A (Adult)</option>
             <option value="A+">A+ (Adult Above 18)</option>
         </select><br><br>
-  
-        <label for="type">Movie/Series</label>
-        <select id="type" name="type" required>
-          <option value="0">Movies</option>
-          <option value="1">Series</option>
-        </select>
 
-        <!-- Progress Bar -->
-        <div class="progress-container" style="display: none; margin-top: 20px;">
-          <progress id="uploadProgress" max="100" value="0" style="width: 100%;"></progress>
-          <span id="uploadPercentage">0%</span>
-        </div>
+        <label for="isSeries">Is Series?</label><br>
+        <input type="checkbox" id="isSeries" name="isSeries" onclick="toggleSeasonIndex()"><br><br>
 
-        <div class="buttons">
-          <button type="submit" class="submit-btn">Upload Movie</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  
+        <button type="submit">Submit</button>
+    </form>
+</body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
+    $(document).ready(function () {
     $('#movieAdd').on('submit', function (e) {
         e.preventDefault();
 
-        const title = $('#nama').val().trim();
-        const releaseYear = $('#tahun').val().trim();
+        const title = $('#title').val().trim();
+        const releaseYear = $('#releaseYear').val().trim();
         const description = $('#description').val().trim();
         const cbfc = $('#cbfc').val();
-        const genre = $('#genre').val();
-        const isSeries = $('#type').val();
+        const isSeries = $('#isSeries').prop('checked');
 
         if (!title || !releaseYear) {
             alert('Title and Release Year are required!');
             return;
         }
 
-        const formData = new FormData();
+        var formData = new FormData();
         formData.append('file', $('#thumbnail')[0].files[0]);
-
-        // Tampilkan progress bar
-        $('.progress-container').show();
-        $('#uploadProgress').val(0);
-        $('#uploadPercentage').text('0%');
 
         $.ajax({
             url: 'https://linggrani.com/uploadsThumbnail.php',
@@ -81,19 +61,8 @@
             data: formData,
             contentType: false,
             processData: false,
-            xhr: function () {
-                const xhr = new XMLHttpRequest();
-                xhr.upload.addEventListener('progress', function (e) {
-                    if (e.lengthComputable) {
-                        const percentComplete = Math.round((e.loaded / e.total) * 100);
-                        $('#uploadProgress').val(percentComplete);
-                        $('#uploadPercentage').text(percentComplete + '%');
-                    }
-                });
-                return xhr;
-            },
-            success: function (response) {
-                const data = JSON.parse(response);
+            success: function(response) {
+                var data = JSON.parse(response);
                 if (data.success) {
                     console.log('File uploaded successfully. File URL: ' + data.fileName);
                     const thumbnailFile = data.fileName;
@@ -103,7 +72,7 @@
                     console.log('Error: ' + data.message);
                 }
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.log('Error during the upload: ' + error);
             }
         });
@@ -114,9 +83,8 @@
                 releaseYear: releaseYear,
                 description: description,
                 cbfc: cbfc,
-                series: isSeries,
+                isSeries: isSeries,
                 thumbnail: thumbnailFile,
-                genreId: genre,
             };
 
             $.ajax({
@@ -126,7 +94,6 @@
                 data: JSON.stringify(movieData),
                 success: function (response) {
                     console.log('Movie added successfully:', response);
-                    alert('Movie added successfully!');
                     location.reload();
                 },
                 error: function (error) {
@@ -136,5 +103,6 @@
         }
     });
 });
+
 </script>
-  
+</html>

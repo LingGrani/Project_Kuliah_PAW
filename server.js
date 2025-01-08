@@ -4,6 +4,11 @@ const expressLayout = require("express-ejs-layouts");
 const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
+const db = require('./database/db');
+const admin = require('./routes/admin.js');
+const authRoutes = require('./routes/login.js');
+app.use('/login', authRoutes),
+
 
 // Layout Setup
 app.use(expressLayout);
@@ -13,11 +18,12 @@ app.set('views', path.join(__dirname, 'views')); // Ensure the views folder is s
 app.set("layout", "./layouts/main");
 app.use(express.urlencoded({ extended: true }));
 
+
 // Access Static folder
 app.use(express.static("public"));
 
 // Route Group
-app.use('/admin', require('./routes/admin'));
+app.use('/admin-crud', require('./routes/admin'));
 
 // Route Home
 app.get('/', (req, res) => {
@@ -183,69 +189,88 @@ app.get("/admindashboard", (req, res) => {
 
 // Routing Upload Admin
 app.get('/uploadadmin', (req, res) => {
-    res.render('admin/uploadadmin', {
-        layout: "layouts/admin-layout.ejs",
-        title: "UploadAdmin",
-        isNavbarPage: true,
-        isFooterPage: true,
-    });
+    db.query('SELECT * FROM genre', (err, genres) => {
+        if (err) return res.status(500).send('Internal Server Error');
+        res.render('admin/uploadadmin', {
+            layout: "layouts/admin-layout.ejs",
+            title: "UploadAdmin",
+            isNavbarPage: true,
+            isFooterPage: true,
+            genres: genres
+        });
+    })
 });
 
 // Routing Update Admin
 app.get('/updateadmin', (req, res) => {
-    res.render('admin/updateadmin', {
-        layout: "layouts/admin-layout.ejs",
-        title: "UpdateAdmin",
-        isNavbarPage: true,
-        isFooterPage: true,
-    });
+    db.query('SELECT * FROM genre', (err, genres) => {
+        if (err) return res.status(500).send('Internal Server Error');
+        
+        const movieId = req.query.id;
+        db.query('SELECT * FROM movie where movieID = ?',movieId, (err, movie) => {
+            if (err) return res.status(500).send('Internal Server Error');
+            res.render('admin/updateadmin', {
+                layout: "layouts/admin-layout.ejs",
+                title: "UpdateAdmin",
+                isNavbarPage: true,
+                isFooterPage: true,
+                movies: movie,
+                genres: genres
+            });
+        })
+    })
 });
 
 // Routing Update Series Admin
 app.get('/updateseriesadmin', (req, res) => {
-    res.render('admin/updateseriesadmin', {
-        layout: "layouts/admin-layout.ejs",
-        title: "UpdateSeriesAdmin",
-        isNavbarPage: true,
-        isFooterPage: true,
-    });
+    db.query('SELECT * FROM movie', (err, movies) => {
+        if (err) return res.status(500).send('Internal Server Error');
+        db.query('SELECT * FROM video', (err, videos) => {
+            if (err) return res.status(500).send('Internal Server Error');
+            res.render('admin/updateseriesadmin', {
+                layout: "layouts/admin-layout.ejs",
+                title: "UpdateSeriesAdmin",
+                isNavbarPage: true,
+                isFooterPage: true,
+                videos: videos,
+                movies: movies
+            });
+        })
+    })
 });
 
 // Routing Genre Admin
 app.get('/admingenre', (req, res) => {
-    res.render('admin/admingenre', {
-        layout: "layouts/admin-layout.ejs",
-        title: "AdminGenre",
-        isNavbarPage: true,
-        isFooterPage: true,
-    });
+    db.query('SELECT * FROM genre', (err, genres) => {
+        if (err) return res.status(500).send('Internal Server Error');
+        res.render('admin/admingenre', {
+            layout: "layouts/admin-layout.ejs",
+            title: "AdminGenre",
+            isNavbarPage: true,
+            isFooterPage: true,
+            genres:genres
+        });
+    })
 });
 
 
 // Routing All Movies
 app.get('/allmovie', (req, res) => {
-    const movies = [
-        { image: '/assets/bglogin.jpg', title: 'Venom: Let There Be Carnage' },
-        { image: '/assets/bglogin.jpg', title: 'Placeholder Movie' },
-        { image: '/assets/bglogin.jpg', title: 'Another Placeholder Movie' },
-        { image: '/assets/bglogin.jpg', title: 'Another Placeholder Movie' },
-    ];
-
-    const series = [
-        { image: '/assets/demo.jpg', title: 'Hierarchy' },
-        { image: '/assets/demo.jpg', title: 'Placeholder Series' },
-        { image: '/assets/demo.jpg', title: 'Another Placeholder Series' },
-        { image: '/assets/demo.jpg', title: 'Another Placeholder Series' },
-    ];
-
-    res.render('admin/allmovie', {
-        layout: "layouts/admin-layout.ejs",  // Pastikan layout yang sesuai
-        title: "All Movies and Series",  // Judul halaman
-        movies,  // Data movies yang akan dikirim ke template
-        series,  // Data series yang akan dikirim ke template
-        isNavbarPage: true,  // Flag untuk menampilkan navbar
-        isFooterPage: true,  // Flag untuk menampilkan footer
-    });
+    db.query('SELECT * FROM movie where series = 0', (err,movies) =>{
+        if (err) return res.status(500).send('Internal Server Error');
+        db.query('SELECT * FROM movie where series = 1', (err,series) =>{
+            if (err) return res.status(500).send('Internal Server Error');
+            res.render('admin/allmovie', {
+                layout: "layouts/admin-layout.ejs",  // Pastikan layout yang sesuai
+                title: "All Movies and Series",  // Judul halaman
+                movies: movies,
+                series: series,
+                isNavbarPage: true,  // Flag untuk menampilkan navbar
+                isFooterPage: true,  // Flag untuk menampilkan footer
+            });
+        })
+    }) 
+   
 });
 
 
