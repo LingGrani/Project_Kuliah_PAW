@@ -53,6 +53,20 @@ app.get('/movies', (req, res) => {
     });
 });
 
+// Route Genre
+app.get('/genre', (req, res) => {
+    res.render('genre', {
+        title: "Genre"
+    });
+});
+
+// Route Watchlist
+app.get('/watchlist', (req, res) => {
+    res.render('watchlist', {
+        title: "Watchlist"
+    });
+});
+
 // Route Register
 app.get('/register', (req, res) => {
     res.render('register', {

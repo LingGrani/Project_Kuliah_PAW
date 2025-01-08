@@ -18,7 +18,7 @@ body.movies-page h1 {
 
 body.movies-page h2 {
     margin-top: 150px;
-    margin-left: 30px;
+    margin-left: 100px;
 }
 
 body.movies-page .carousel-container {
@@ -46,5 +46,148 @@ body.movies-page .thumbnail:hover {
 
 /* Batasi jumlah thumbnail yang ditampilkan */
 body.movies-page .carousel-container .thumbnail:nth-child(n+9) {
+    display: none; /* Sembunyikan thumbnail setelah yang ke-6 */
+}
+
+/* Genre Page */
+body.genre-page {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+body.genre-page h1 {
+    margin-top: 150px;
+    margin-bottom: 150px;
+    text-align: center;
+}
+
+body.genre-page h2 {
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+/* Carousel container */
+body.genre-page .carousel-container {
+    display: flex;
+    justify-content: flex-start; /* Posisi elemen di kiri */
+    margin-left: 100px;
+    margin-right: 100px;
+    gap: 15px; /* Jarak antar elemen */
+    padding: 20px;
+    overflow-x: auto; /* Mengaktifkan scroll horizontal */
+    scroll-snap-type: x mandatory; /* Membuat elemen "snap" saat digeser */
+    max-width: 100%; /* Batas maksimal lebar container */
+    scroll-behavior: smooth; /* Animasi halus saat scroll */
+}
+
+/* Custom scrollbar untuk Webkit browsers (Chrome, Safari, Edge) */
+body.genre-page .carousel-container::-webkit-scrollbar {
+    height: 4px; /* Ketebalan scrollbar yang lebih tipis */
+}
+
+body.genre-page .carousel-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1); /* Warna track (latar belakang scrollbar) */
+    border-radius: 10px; /* Membuat track lebih rounded */
+}
+
+body.genre-page .carousel-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5); /* Warna thumb yang lebih tipis dan transparan */
+    border-radius: 10px; /* Membuat thumb rounded */
+    border: 2px solid rgba(0, 0, 0, 0.1); /* Sedikit border di sekitar thumb */
+    transition: background-color 0.3s ease; /* Efek transisi saat hover */
+}
+
+body.genre-page .carousel-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 1); /* Warna thumb saat hover */
+}
+
+
+/* Thumbnail styling */
+body.genre-page .thumbnail {
+    flex: 0 0 auto;
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    scroll-snap-align: start; /* Setiap elemen akan "snap" di posisi awal */
+}
+
+body.genre-page .thumbnail:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Batasi jumlah thumbnail yang ditampilkan */
+body.genre-page .carousel-container .thumbnail:nth-child(n+14) {
+    display: none; /* Menyembunyikan thumbnail setelah yang ke-6 */
+}
+
+/* Tombol Pagination */
+body.genre-page .carousel-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+body.genre-page .carousel-buttons button {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+body.genre-page .carousel-buttons button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Watchlist Page */
+body.watchlist-page {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+body.watchlist-page h1 {
+    margin-top: 150px;
+    margin-bottom: 150px;
+    text-align: center;
+}
+
+body.watchlist-page h2 {
+    margin-top: 150px;
+    margin-left: 100px;
+}
+
+body.watchlist-page .carousel-container {
+    display: flex; /* Menggunakan flexbox untuk tata letak horizontal */
+    justify-content: center; /* Elemen rata tengah */
+    gap: 15px; /* Jarak antar elemen */
+    padding: 20px;
+    overflow: hidden; /* Mencegah elemen meluap */
+    max-width: 100%; /* Batas maksimal lebar container */
+    flex-wrap: wrap; /* Membuat elemen thumbnail turun ke baris baru jika terlalu banyak */
+}
+
+body.watchlist-page .thumbnail {
+    flex: 0 0 auto; /* Thumbnail tetap berukuran tetap */
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+body.watchlist-page .thumbnail:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Batasi jumlah thumbnail yang ditampilkan */
+body.watchlist-page .carousel-container .thumbnail:nth-child(n+9) {
     display: none; /* Sembunyikan thumbnail setelah yang ke-6 */
 }
