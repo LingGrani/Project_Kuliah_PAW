@@ -11,13 +11,16 @@
 <body>
 
   <!-- Conditionally include navbar based on the page type -->
-  <% if (!isAdminPage) { %>
+  <% if (!isNavbarPage) { %>
     <%- include('./navbar.ejs') %>
   <% } %>
 
   <%- body %> <!-- Main content -->
   
-  <%- include('./footer.ejs') %> <!-- Footer -->
+  <% if (!isFooterPage) { %>
+    <%- include('./footer.ejs') %> 
+  <% } %>
+ 
 
 </body>
 </html>

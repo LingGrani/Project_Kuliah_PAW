@@ -23,7 +23,8 @@ app.use('/admin', require('./routes/admin'));
 app.get('/', (req, res) => {
     res.render('index', {
         title: "HomePage",
-        isAdminPage: false,
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
@@ -31,7 +32,8 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login', {
         title: "Login",
-        isAdminPage: true,
+        isNavbarPage: true,
+        isFooterPage: false,
     });
 });
 
@@ -52,7 +54,8 @@ app.post('/login', (req, res) => {
 app.get('/movies', (req, res) => {
     res.render('movies', {
         title: "Movie",
-        isAdminPage: false,
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
@@ -60,7 +63,8 @@ app.get('/movies', (req, res) => {
 app.get('/genre', (req, res) => {
     res.render('genre', {
         title: "Genre",
-        isAdminPage: false,
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
@@ -68,7 +72,8 @@ app.get('/genre', (req, res) => {
 app.get('/watchlist', (req, res) => {
     res.render('watchlist', {
         title: "Watchlist",
-        isAdminPage: false,
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
@@ -76,7 +81,8 @@ app.get('/watchlist', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('register', {
         title: "Register",
-        isAdminPage: true,
+        isNavbarPage: true,
+        isFooterPage: false,
     });
 });
 
@@ -84,7 +90,8 @@ app.get('/register', (req, res) => {
 app.get('/series', (req, res) => {
     res.render('series', {
         title: "Series",
-        isAdminPage: false,
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
@@ -92,7 +99,8 @@ app.get('/series', (req, res) => {
 app.get('/seriess', (req, res) => {
     res.render('components/seriess', {
         title: "Seriess",
-        isAdminPage: false,
+        isNavbarPage: false,
+        isFooterPage: false,
     });
 });
 
@@ -104,7 +112,8 @@ app.get('/adminlogin', (req, res) => {
         title: "Admin Login",
         error: error,
         redirect: redirect,  // Pass redirect to the view
-        isAdminPage: true,
+        isNavbarPage: true,
+        isFooterPage: false,
     });
 });
 
@@ -116,7 +125,8 @@ app.get('/adminregister', (req, res) => {
         title: "Admin Register",
         error: error,
         redirect: redirect,  // Pass redirect to the view
-        isAdminPage: true,
+        isNavbarPage: true,
+        isFooterPage: false,
     });
 });
 
@@ -156,7 +166,8 @@ app.get("/admindashboard", (req, res) => {
         visitors,
         topMovies,
         sumOfCommentsLength,
-        isAdminPage: true, // Hide navbar on admin page
+        isNavbarPage: true, 
+        isFooterPage: true,
     });
 });
 
