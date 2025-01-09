@@ -28,9 +28,9 @@ app.use('/auth', require('./routes/login'));
 
 // Route Home
 app.get('/', (req, res) => {
-    res.render('index', {
+    res.render('register', {
         title: "HomePage",
-        isNavbarPage: false,
+        isNavbarPage: true,
         isFooterPage: false,
     });
 });
@@ -50,7 +50,7 @@ app.post('/login', (req, res) => {
     // Logika autentikasi sederhana
     if (username === 'user' && password === 'password') {
         // Login berhasil, arahkan ke halaman index
-        res.redirect('/');
+        res.redirect('/index');
     } else {
         // Login gagal, kembalikan ke halaman login dengan pesan kesalahan
         res.status(401).send('Invalid username or password');
@@ -85,10 +85,10 @@ app.get('/watchlist', (req, res) => {
 });
 
 // Route Register
-app.get('/register', (req, res) => {
-    res.render('register', {
-        title: "Register",
-        isNavbarPage: true,
+app.get('/index', (req, res) => {
+    res.render('index', {
+        title: "Index",
+        isNavbarPage: false,
         isFooterPage: false,
     });
 });
