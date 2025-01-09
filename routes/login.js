@@ -2,40 +2,108 @@ require('dotenv')
 const express = require('express')
 const router = express.Router();
 const db = require('../database/db');
+const session = require('express-session');
+const bcrypt = require('bcryptjs');
 
+// session
+router.use(
+    session({
+        secret: 'hello123',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: false } // Set secure: true if using HTTPS
+    })
+);
 
-// Route Signup
+// Route Signup 
 router.post('/signup', (req, res) => {
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
 
+    if (!username || !email || !password) {
+        return res.status(400).send('All fields are required');
+    }
+
+    // Hash the password
     bcrypt.hash(password, 10, (err, hash) => {
-        if (err) return res.status(500).send('Error hashing password');
+        if (err) {
+            return res.status(500).send('Error hashing password');
+        }
 
-        db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hash], (err, result) => {
-            if (err) return res.status(500).send('Error registering user');
-            res.redirect('/login');
-        });
+        // Insert user into the database
+        db.query(
+            'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+            [username, email, hash],
+            (err, result) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).send('Error registering user');
+                }
+
+                // Save user ID in session
+                req.session.userId = result.insertId;
+
+                res.status(201).redirect('/');
+            }
+        );
     });
 });
 
 // Route Login
+// router.post('/login', (req, res) => {
+//     const { email, password } = req.body;
+
+//     db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+//         if (err) return res.status(500).send('Error fetching user');
+//         if (results.length === 0) return res.status(400).send('User not found');
+
+//         bcrypt.compare(password, results[0].password, (err, isMatch) => {
+//             if (err) return res.status(500).send('Error checking password');
+//             if (!isMatch) return res.status(401).send('Incorrect password');
+
+//             // Simpan userId dalam sesi setelah login berhasil
+//             req.session.userId = results[0].id;
+//             res.redirect('/'); // Arahkan ke halaman utama setelah login
+//         });
+//     });
+// });
+
 router.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
-        if (err) return res.status(500).send('Error fetching user');
-        if (results.length === 0) return res.status(400).send('User not found');
+    if (!email || !password) {
+        return res.status(400).send('Email and password are required');
+    }
 
-        bcrypt.compare(password, results[0].password, (err, isMatch) => {
-            if (err) return res.status(500).send('Error checking password');
-            if (!isMatch) return res.status(401).send('Incorrect password');
+    // Query to find user by email
+    db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error fetching user');
+        }
 
-            // Simpan userId dalam sesi setelah login berhasil
-            req.session.userId = results[0].id;
-            res.redirect('/'); // Arahkan ke halaman utama setelah login
+        if (results.length === 0) {
+            return res.status(404).send('User not found');
+        }
+
+        const user = results[0];
+
+        // Compare provided password with hashed password in the database
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Error checking password');
+            }
+
+            if (!isMatch) {
+                return res.status(401).send('Incorrect password');
+            }
+
+            // Save user ID in session
+            req.session.userId = user.id;
+
+            res.redirect('/'); // Redirect to homepage after successful login
         });
     });
 });
-
 
 module.exports = router;

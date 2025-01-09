@@ -24,6 +24,7 @@ app.use(express.static("public"));
 
 // Route Group
 app.use('/admin-crud', require('./routes/admin'));
+app.use('/auth', require('./routes/login'));
 
 // Route Home
 app.get('/', (req, res) => {
