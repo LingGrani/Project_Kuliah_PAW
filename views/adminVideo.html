@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Video</title>
+</head>
+<body>
+    <h1>Add New Video</h1>
+    <form  onsubmit="uploadFile(event)" enctype="multipart/form-data">
+
+        <label for="titleSelect">Select Movie Title:</label><br>
+        <select id="titleSelect" name="titleSelect" onchange="toggleMovieID()" required>
+            <option value="">Select Movie Title</option>
+            <option value="1">Movie 1</option>
+            <option value="2">Movie 2</option>
+            <option value="3">Movie 3</option>
+        </select><br><br>
+
+        <label for="videoTitle">Video Title:</label><br>
+        <input type="text" id="videoTitle" name="videoTitle" required><br><br>
+
+        <label for="episodeNumber">Episode Number:</label><br>
+        <input type="number" id="episodeNumber" name="episodeNumber" required><br><br>
+
+        <label for="duration">Duration:</label><br>
+        <input type="time" id="duration" name="duration" required><br><br>
+
+        <label for="videoLink">Video Link:</label><br>
+        <input type="url" id="videoLink" name="videoLink" required><br><br>
+
+        <label for="isSeries">Is Series?</label><br>
+        <input type="checkbox" id="isSeries" name="isSeries" onclick="toggleSeasonIndex()"><br><br>
+
+        <label for="seasonIndex">Season Index:</label><br>
+        <input type="number" id="seasonIndex" name="seasonIndex"><br><br>
+
+        <label for="thumbnail">Thumbnail:</label><br>
+        <input type="file" id="thumbnail" name="thumbnail" accept="image/*" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  function toggleSeasonIndex() {
+      const isSeries = document.getElementById("isSeries").checked;
+      const seasonIndexField = document.getElementById("seasonIndex");
+      if (isSeries) {
+          seasonIndexField.value = 0;
+          seasonIndexField.disabled = true;
+      } else {
+          seasonIndexField.disabled = false;
+          seasonIndexField.value = '';
+      }
+  }
+
+  function toggleMovieID() {
+      const movieIDInput = document.getElementById("movieID");
+      const titleSelect = document.getElementById("titleSelect");
+      const selectedMovieID = titleSelect.value;
+      const MovieID = movieIDInput.value;
+      if (selectedMovieID !== "") {
+          movieIDInput.value = selectedMovieID;
+          movieIDInput.disabled = true;
+      } else {
+          movieIDInput.disabled = false;
+          movieIDInput.value = '';
+      }
+  }
+  function uploadFile(event) {
+        event.preventDefault();
+        const fileInput = document.getElementById('file');
+        const progressBar = document.getElementById('progress-bar');
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://linggrani.com/uploads.php', true);
+
+        xhr.upload.onprogress = function(event) {
+            if (event.lengthComputable) {
+                const percentComplete = (event.loaded / event.total) * 100;
+                progressBar.value = percentComplete;
+            }
+        };
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert('File uploaded successfully!');
+                progressBar.value = 0;
+            } else {
+                alert('File upload failed: ' + xhr.statusText);
+            }
+        };
+
+        xhr.onerror = function() {
+            alert('An error occurred while uploading the file.');
+        };
+
+        xhr.send(formData);
+    }
+</script>
+</html>

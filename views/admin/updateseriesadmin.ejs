@@ -1,41 +1,224 @@
 <div class="container">
-    <h1>Update Series</h1>
-        <label for="nama">Nama :</label>
-        <input type="text" id="nama" name="nama" required>
-
-        <label for="tahun">Tahun :</label>
-        <input type="number" id="tahun" name="tahun" required>
-
-        <label for="detail">Detail :</label>
-        <textarea id="detail" name="detail" rows="4" required></textarea>
-
-        <label for="cast">Cast (comma separated) :</label>
-        <input type="text" id="cast" name="cast" required>
-
-        <label for="genre">Genre :</label>
-        <select id="genre" name="genre" required>
-            <option value="">Pilih Genre</option>
-            <!-- Genre akan diisi dari halaman manage genre -->
+    <div class="section-header">
+      <h2 class="section-title">Video :</h2>
+    </div>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Video ID</th>
+            <th>Movie ID</th>
+            <th>Video Title</th>
+            <th>Episode Number</th>
+            <th>Duration</th>
+            <th>Video Link</th>
+            <th>Season Index</th>
+            <th>Thumbnail</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% videos.forEach(video => { %>
+            <tr>
+              <td><%= video.videoID %></td>
+              <td><%= video.movieID %></td>
+              <td><%= video.videoTitle %></td>
+              <td><%= video.episodeNumber %></td>
+              <td><%= video.duration %></td>
+              <td><a href="<%= video.videoLink %>" target="_blank">Watch</a></td>
+              <td><%= video.seasonIndex %></td>
+              <td>
+                <img src="<%= video.thumbnail %>" alt="<%= video.videoTitle %>" width="100">
+              </td>
+              <td>
+                <button type="button" class="delete-btn" style="background-color: red;" onclick="deleteVideoFromForm(<%= video.videoID %>)">Delete Video</button>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Form for uploading or updating video -->
+    <h1>Upload/Update Video</h1>
+    <div class="container" id="videoAdd">
+      <form id="videoForm" onsubmit="submitForm(event)">
+        <label for="videoID">Video:</label>
+        <select id="videoID" name="videoID" required>
+          <option value="">Pilih Video</option>
+          <% movies.forEach(movie => { %>
+            <option value="<%= movie.movieID %>"><%= movie.title %></option>
+          <% }); %>
         </select>
-        <label for="top">Top Series (opsional)</label>
-        <select id="top" name="top">
-            <option value="">Masuk dalam top berapa (1-10)</option>
-            <script>
-                for (let i = 1; i <= 10; i++) {
-                    document.write(`<option value="${i}">${i}</option>`);
-                }
-            </script>
-        </select>
-        <label for="episodes">Episodes :</label>
-        <select id="episodes" name="episodes" required>
-            <option value="">Pilih Episodes</option>
-            <!-- episodes akan diisi dari halaman episode series -->
-        </select>
 
-        <div class="buttons">
-            <button type="button" class="upload-btn" onclick="location.href='upload_file.html'">Upload New File</button>
-            <button type="submit" class="submit-btn">Update Series</button>
-            <button type="submit" class="submit-btn" style="background-color: red;">Delete Series</button>
+        <label for="videoTitle">Video Title:</label>
+        <input type="text" id="videoTitle" name="videoTitle" required>
+    
+        <label for="episodeNumber">Episode Number:</label>
+        <input type="number" id="episodeNumber" name="episodeNumber" required>
+    
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" required>
+    
+        <label for="videoLink">Video Link:</label>
+        <input type="file" id="videoLink" name="videoLink" accept="video/*"><br><br>
+
+        <label for="seasonIndex">Season Index:</label>
+        <input type="number" id="seasonIndex" name="seasonIndex" required>
+    
+        <label for="thumbnail">Thumbnail:</label>
+        <input type="file" id="thumbnail" name="thumbnail" accept="image/*"><br><br>
+
+        <div class="progress-container" style="display: none; margin-top: 20px;">
+            <progress id="uploadProgress" max="100" value="0" style="width: 100%;"></progress>
+            <span id="uploadPercentage">0%</span>
         </div>
-    </form>
+        <div class="buttons">
+          <button type="submit" class="submit-btn">Save Video</button>
+        </div>
+      </form>
+    </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  function openEditForm(videoID) {
+    $.ajax({
+      url: `/admin-crud/video/${videoID}`,
+      method: 'GET',
+      success: function (video) {
+        $('#videoID').val(video.videoID);
+        $('#videoTitle').val(video.videoTitle);
+        $('#episodeNumber').val(video.episodeNumber);
+        $('#duration').val(video.duration);
+        $('#seasonIndex').val(video.seasonIndex);
+      },
+      error: function (err) {
+        alert('Failed to fetch video details!');
+      }
+    });
+  }
+
+  function deleteVideoFromForm(videoID) {
+    if (confirm('Are you sure you want to delete this video?')) {
+      $.ajax({
+        url: `/admin-crud/video/${videoID}`,
+        method: 'DELETE',
+        success: function () {
+          alert('Video deleted successfully!');
+          location.reload();
+        },
+        error: function () {
+          alert('Failed to delete video!');
+        }
+      });
+    }
+  }
+
+  function submitForm(event) {
+    event.preventDefault();
+
+    const formData = new FormData($('#videoForm')[0]);
+    const videoFile = $('#videoLink')[0].files[0];
+    const thumbnailFile = $('#thumbnail')[0].files[0];
+
+    // Show progress bar for upload
+    $('.progress-container').show();
+    $('#uploadProgress').val(0);
+    $('#uploadPercentage').text('0%');
+
+    // Handle video file upload
+    let videoLink = '';
+     $.ajax({
+            url: 'https://linggrani.com/uploadsThumbnail.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            xhr: function () {
+                const xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener('progress', function (e) {
+                    if (e.lengthComputable) {
+                        const percentComplete = Math.round((e.loaded / e.total) * 100);
+                        $('#uploadProgress').val(percentComplete);
+                        $('#uploadPercentage').text(percentComplete + '%');
+                    }
+                });
+                return xhr;
+            },
+            success: function (response) {
+                const data = JSON.parse(response);
+                if (data.success) {
+                    console.log('File uploaded successfully. File URL: ' + data.fileName);
+                    const thumbnailFile = data.fileName;
+
+                    sendMovieData(thumbnailFile);
+                } else {
+                    console.log('Error: ' + data.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Error during the upload: ' + error);
+            }
+        });
+        // Submit the form with the obtained URLs
+        const videoData = {
+          movieID: $('#videoID').val(),
+          videoTitle: $('#videoTitle').val(),
+          episodeNumber: $('#episodeNumber').val(),
+          duration: $('#duration').val(),
+          videoLink: videoLink,
+          seasonIndex: $('#seasonIndex').val(),
+          thumbnail: thumbnailUrl
+        };
+
+        console.log(videoData)
+
+        // Send video data to the server
+        $.ajax({
+          url: '/admin-crud/video',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(videoData),
+          success: function (response) {
+            alert('Video saved successfully!');
+            location.reload();
+          },
+          error: function (error) {
+            console.error('Error saving video:', error);
+            alert('Error saving video.');
+          }
+        });
+  }
+
+  function uploadFile(file, uploadUrl, callback) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    $.ajax({
+      url: uploadUrl,
+      type: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      xhr: function() {
+        const xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('progress', function (e) {
+          if (e.lengthComputable) {
+            const percentComplete = Math.round((e.loaded / e.total) * 100);
+            $('#uploadProgress').val(percentComplete);
+            $('#uploadPercentage').text(percentComplete + '%');
+          }
+        });
+        return xhr;
+      },
+      success: function (response) {
+        const fileUrl = response.fileUrl; // Assuming response contains fileUrl
+        callback(fileUrl);
+      },
+      error: function (xhr, status, error) {
+        alert('Error uploading file: ' + error);
+      }
+    });
+  }
+</script>

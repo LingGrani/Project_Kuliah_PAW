@@ -1,36 +1,160 @@
 <div class="container">
-    <h1>Update Movie</h1>
-        <label for="nama">Nama :</label>
-        <input type="text" id="nama" name="nama" required>
+    <h1>Update Series</h1>
+    <div class="container" id="movieAdd">
+        <h1>Upload Movie / Series</h1>
+        <form>
+        <% movies.forEach(movie=> { %>
+            <input id="movieID" value="<%= movie.movieID %>" disabled>
+            <label for="nama">Nama :</label>
+            <input type="text" id="nama" name="nama" value="<%= movie.title %>" required>
+      
+            <label for="tahun">Tahun :</label>
+            <input type="number" id="tahun" name="tahun" value="<%= movie.releaseYear %>" required>
 
-        <label for="tahun">Tahun :</label>
-        <input type="number" id="tahun" name="tahun" required>
-
-        <label for="detail">Detail :</label>
-        <textarea id="detail" name="detail" rows="4" required></textarea>
-
-        <label for="cast">Cast (comma separated) :</label>
-        <input type="text" id="cast" name="cast" required>
-
-        <label for="genre">Genre :</label>
-        <select id="genre" name="genre" required>
-            <option value="">Pilih Genre</option>
-            <!-- Genre akan diisi dari halaman manage genre -->
-        </select>
-        <label for="top">Top Movie (opsional)</label>
-        <select id="top" name="top">
-            <option value="">Masuk dalam top berapa (1-10)</option>
-            <script>
-                for (let i = 1; i <= 10; i++) {
-                    document.write(`<option value="${i}">${i}</option>`);
-                }
-            </script>
-        </select>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" value="<%= movie.description %>"></textarea><br><br>
+      
+            <label for="thumbnail">Thumbnail:</label><br>
+            <img src="https://<%= movie.thumbnail %>" alt="<%= movie.title %>">
+            <input type="file" id="thumbnail" name="thumbnail" accept="image/*"><br><br>
+      
+            <label for="genre">Genre :</label>
+            <select id="genre" name="genre" value="<%= movie.genreId %>" required>
+              <option value="">Pilih Genre</option>
+              <% genres.forEach(genre=> { %>
+                <option value="<%= genre.genreID %>"><%= genre.genreName %></option>
+                <% }); %>
+            </select>
+    
+            <label for="cbfc">CBFC Rating:</label><br>
+            <select id="cbfc" name="cbfc" value="<%= movie.cbfc %>">
+                <option value="U">U (Universal)</option>
+                <option value="U/A">U/A (Parental Guidance)</option>
+                <option value="A">A (Adult)</option>
+                <option value="A+">A+ (Adult Above 18)</option>
+            </select><br><br>
+      
+            <label for="type">Movie/Series</label>
+            <select id="type" name="type" required value="<%= movie.series %>">
+              <option value="0">Movies</option>
+              <option value="1">Series</option>
+            </select>
+        <% }); %>
+          <!-- Progress Bar -->
+          <div class="progress-container" style="display: none; margin-top: 20px;">
+            <progress id="uploadProgress" max="100" value="0" style="width: 100%;"></progress>
+            <span id="uploadPercentage">0%</span>
+          </div>
 
         <div class="buttons">
-            <button type="button" class="upload-btn" onclick="location.href='upload_file.html'">Upload New File</button>
-            <button type="submit" class="submit-btn">Update Movie</button>
-            <button type="submit" class="submit-btn" style="background-color: red;">Delete Movie</button>
+            <button type="submit" class="submit-btn">Update Series</button>
         </div>
+        <button type="button" class="delete-btn" style="background-color: red;">Delete</button>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Delete a todo
+    $('.delete-btn').on('click', function () {
+        if (!confirm('Are you sure you want to delete this movie?')) {
+            return;
+        }
+          const id = $('#movieID').val();
+          $.ajax({
+              url: '/admin-crud/movie/' + id,
+              type: 'DELETE',
+              success: function () {
+                  location.reload(); // Reload to show updated list
+              }
+          });
+      });
+    $('#movieAdd').on('submit', function (e) {
+        e.preventDefault();
+
+        const title = $('#nama').val().trim();
+        const releaseYear = $('#tahun').val().trim();
+        const description = $('#description').val().trim();
+        const cbfc = $('#cbfc').val();
+        const genre = $('#genre').val();
+        const isSeries = $('#type').val();
+        const movieID = $('#movieID').val();
+
+        if (!title || !releaseYear) {
+            alert('Title and Release Year are required!');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', $('#thumbnail')[0].files[0]);
+
+        // Tampilkan progress bar
+        $('.progress-container').show();
+        $('#uploadProgress').val(0);
+        $('#uploadPercentage').text('0%');
+
+        $.ajax({
+            url: 'https://linggrani.com/uploadsThumbnail.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            xhr: function () {
+                const xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener('progress', function (e) {
+                    if (e.lengthComputable) {
+                        const percentComplete = Math.round((e.loaded / e.total) * 100);
+                        $('#uploadProgress').val(percentComplete);
+                        $('#uploadPercentage').text(percentComplete + '%');
+                    }
+                });
+                return xhr;
+            },
+            success: function (response) {
+                const data = JSON.parse(response);
+                if (data.success) {
+                    console.log('File uploaded successfully. File URL: ' + data.fileName);
+                    const thumbnailFile = data.fileName;
+
+                    sendMovieData(thumbnailFile);
+                } else {
+                    console.log('Error: ' + data.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Error during the upload: ' + error);
+            }
+        });
+
+        function sendMovieData(thumbnailFile) {
+            const movieData = {
+                title: title,
+                releaseYear: releaseYear,
+                description: description,
+                cbfc: cbfc,
+                series: isSeries,
+                thumbnail: thumbnailFile,
+                genreId: genre,
+            };
+
+
+
+            $.ajax({
+                url: '/admin-crud/movie/' + movieID,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(movieData),
+                success: function (response) {
+                    console.log('Movie PUT successfully:', response);
+                    alert('Movie PUT successfully!');
+                    location.reload();
+                },
+                error: function (error) {
+                    console.error("Error PUT movie:", error.responseText);
+                }
+            });
+        }
+    });
+});
+</script>

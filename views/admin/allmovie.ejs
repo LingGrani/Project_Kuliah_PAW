@@ -11,13 +11,13 @@
     <div class="card-container">
       <% movies.forEach(movie => { %>
         <div class="card">
-          <img src="<%= movie.image %>" alt="<%= movie.title %>">
+          <img src="https://<%= movie.thumbnail %>" alt="<%= movie.title %>">
           <div class="card-footer">
             <select class="form-select">
               <option selected><%= movie.title %></option>
             </select>
           </div>
-          <button class="update-btn" onclick="location.href='/updateadmin'">Update Movie</button>
+          <button class="update-btn" onclick="location.href='/updateadmin?id=<%= movie.movieID %>'">Update Movie</button>
         </div>
       <% }) %>
     </div>
@@ -30,7 +30,7 @@
     <div class="card-container">
       <% series.forEach(serie => { %>
         <div class="card">
-          <img src="<%= serie.image %>" alt="<%= serie.title %>">
+          <img src="<%= serie.thumbnail %>" alt="<%= serie.title %>">
           <div class="card-footer">
             <select class="form-select">
               <option selected><%= serie.title %></option>
