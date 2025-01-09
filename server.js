@@ -28,9 +28,9 @@ app.use('/auth', require('./routes/login'));
 
 // Route Home
 app.get('/', (req, res) => {
-    res.render('register', {
+    res.render('index', {
         title: "HomePage",
-        isNavbarPage: true,
+        isNavbarPage: false,
         isFooterPage: false,
     });
 });

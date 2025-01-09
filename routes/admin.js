@@ -3,13 +3,14 @@ const express = require('express')
 const router = express.Router();
 const db = require('../database/db');
 
-router.get('/', (req, res) => {
-    return res.render('admin/index');
-});
 
 router.use((req, res, next) => {
-    req.app.set('layout', 'layouts/admin-layout');
-    next();
+  req.app.set('layout', 'layouts/admin-layout');
+  next();
+});
+
+router.get('/', (req, res) => {
+    return res.render('admin/index');
 });
 
 // Endpoint untuk menambahkan movie baru
