@@ -1,65 +1,61 @@
+// List of All packages
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const session = require('express-session');
-
 const router = express.Router();
+const db = require('../database/db');
+const session = require('express-session');
+const bcrypt = require('bcryptjs');
 
-// In-memory "database"
-const users = [];
+// Static folder public for assets & css
+router.use(express.static('public'));
 
-// Middleware for sessions
-router.use(
-    session({
-        secret: 'hai123',
-        resave: false,
-        saveUninitialized: true,
-    })
-);
+// Session for auth user
+router.use(session({
+    secret: 'pawgasal',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
 
-// Signup Route
-router.post('/signup', async (req, res) => {
-    const { username, email, password } = req.body;
-
-    if (!username || !email || !password) {
-        return res.status(400).send('All fields are required');
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Simulate saving user in local storage
-    users.push({ id: users.length + 1, username, email, password: hashedPassword });
-
-    // Save user ID in session
-    req.session.userId = users.length;
-
-    res.status(201).send('Signup successful and session created');
+// Login view route
+router.get('/login', (req, res) => {
+    res.render('login', {
+        layout: 'layouts/auth',
+        title: "Login"
+    });
 });
 
-// Login Route
-router.post('/login', async (req, res) => {
+router.post('/login', (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
         return res.status(400).send('Email and password are required');
     }
 
-    // Simulate finding user in local storage
-    const user = users.find((u) => u.email === email);
+    db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+        if (err) {
+            return res.status(500).send('Error mengambil data user');
+        }
 
-    if (!user) {
-        return res.status(404).send('User not found');
-    }
+        if (results.length === 0) {
+            return res.status(404).send('User tidak ditemukan.');
+        }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+        const user = results[0];
 
-    if (!isMatch) {
-        return res.status(401).send('Incorrect password');
-    }
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+            if (err) {
+                return res.status(500).send('Error saat check password');
+            }
 
-    // Save user ID in session
-    req.session.userId = user.id;
+            if (!isMatch) {
+                return res.status(401).send("password salah.");
+            }
 
-    res.status(200).send('Login successful');
+            req.session.userId = user.id;
+
+            res.redirect('/');
+        });
+    });
 });
 
 module.exports = router;

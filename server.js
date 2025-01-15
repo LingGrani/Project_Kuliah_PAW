@@ -6,9 +6,6 @@ const app = express();
 const port = process.env.PORT || 3000;
 const db = require('./database/db');
 const admin = require('./routes/admin.js');
-const authRoutes = require('./routes/login.js');
-app.use('/login', authRoutes),
-
 
 // Layout Setup
 app.use(expressLayout);
@@ -24,7 +21,7 @@ app.use(express.static("public"));
 
 // Route Group
 app.use('/admin-crud', require('./routes/admin'));
-app.use('/auth', require('./routes/login'));
+app.use('/auth', require('./routes/auth'));
 
 // Route Home
 app.get('/', (req, res) => {
@@ -33,28 +30,6 @@ app.get('/', (req, res) => {
         isNavbarPage: false,
         isFooterPage: false,
     });
-});
-
-// Route Login
-app.get('/login', (req, res) => {
-    res.render('login', {
-        title: "Login",
-        isNavbarPage: true,
-        isFooterPage: false,
-    });
-});
-
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-
-    // Logika autentikasi sederhana
-    if (username === 'user' && password === 'password') {
-        // Login berhasil, arahkan ke halaman index
-        res.redirect('/index');
-    } else {
-        // Login gagal, kembalikan ke halaman login dengan pesan kesalahan
-        res.status(401).send('Invalid username or password');
-    }
 });
 
 // Route Movies
