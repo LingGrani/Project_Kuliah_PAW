@@ -118,11 +118,6 @@ body.genre-page .thumbnail:hover {
     cursor: pointer;
 }
 
-/* Batasi jumlah thumbnail yang ditampilkan */
-body.genre-page .carousel-container .thumbnail:nth-child(n+14) {
-    display: none; /* Menyembunyikan thumbnail setelah yang ke-6 */
-}
-
 /* Tombol Pagination */
 body.genre-page .carousel-buttons {
     display: flex;
@@ -162,6 +157,15 @@ body.watchlist-page h1 {
 body.watchlist-page h2 {
     margin-top: 150px;
     margin-left: 100px;
+}
+.carousel-container1 {
+    display: flex; /* Menggunakan flexbox untuk tata letak horizontal */
+    justify-content: center; /* Elemen rata tengah */
+    gap: 15px; /* Jarak antar elemen */
+    padding: 20px;
+    overflow: hidden; /* Mencegah elemen meluap */
+    max-width: 100%; /* Batas maksimal lebar container */
+    flex-wrap: wrap; /* Membuat elemen thumbnail turun ke baris baru jika terlalu banyak */
 }
 
 body.watchlist-page .carousel-container {

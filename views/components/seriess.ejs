@@ -202,4 +202,62 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        function PageLoad() {
+            $.ajax({
+                url: '/users',
+                type: 'GET',
+                contentType: 'application/json',
+                success: function (movies) {
+                  let list = "";
+                    console.log('Task successfully added:', movies);
+                    let random = `
+                    <div style="background: url('https://${movies.randomMovie.thumbnail}')center/cover;">
+                      <div class="hero-section">
+                        <div class="overlay"></div>
+                        <div class="hero-content">
+                          <h1>${movies.randomMovie.title}</h1>
+                          <div class="movie-details">
+                            <span>${movies.randomMovie.cbfc}</span> | <span>${movies.randomMovie.genre}</span> | <spam>${movies.randomMovie.releaseYear}</span>
+                          </div>
+                          <p>${movies.randomMovie.description}</p>
+                          <div class="movie-buttons">
+                            <button class="btn btn-primary">Watch Now</button>
+                            <button class="btn btn-outline-light">More Info</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                    for (var i = 0; i < movies.series.length; i++) {
+                      
+                      list += `
+                      <div class="col-md-2">
+                        <div class="card text-center">
+                          <div class="position-relative">
+                            <a href="/seriess">
+                              <div class="number-overlay">1</div>
+                              <img src="https://${movies.series[i].thumbnail}" class="card-img-top" alt="Movie 1">
+                            </a>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title">1</h5>
+                          </div>
+                        </div>
+                      </div>
+                      `
+                    }
+                    document.getElementById('list').innerHTML = list
+                    document.getElementById('hero').innerHTML = random
+                },
+                error: function (error) {
+                    console.error('Error adding task:', error.responseText);
+                }
+      });
+    }
+    PageLoad();
+  });
+</script>
   

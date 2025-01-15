@@ -22,6 +22,7 @@ app.use(express.static("public"));
 // Route Group
 app.use('/admin-crud', require('./routes/admin'));
 app.use('/auth', require('./routes/auth'));
+app.use('/users', require('./routes/user.js'))
 
 // Route Home
 app.get('/', (req, res) => {
@@ -77,14 +78,42 @@ app.get('/series', (req, res) => {
     });
 });
 
-// Route Movie
-app.get('/movie', (req, res) => {
-    res.render('components/movie', {
-        title: "Movie",
-        isNavbarPage: false,
-        isFooterPage: false,
+app.get('/movie/:id', (req, res) => {
+    const movieId = req.params.id;
+    
+    // Query untuk mendapatkan film berdasarkan movieID
+    db.query('SELECT * FROM movie WHERE movieID = ?', [movieId], (err, movieResults) => {
+        if (err) {
+            console.error('Error fetching movie:', err);
+            return res.status(500).send('Error fetching movie');
+        }
+        
+        // Cek apakah film ditemukan
+        if (movieResults.length === 0) {
+            return res.status(404).send('Movie not found');
+        }
+
+        const movie = movieResults[0]; // Mengambil data film yang ditemukan
+        
+        // Query untuk mengambil episode terkait film tersebut
+        db.query('SELECT * FROM video WHERE movieID = ?', [movieId], (err, episodeResults) => {
+            if (err) {
+                console.error('Error fetching episodes:', err);
+                return res.status(500).send('Error fetching episodes');
+            }
+
+            // Render halaman movie dengan data film dan episode yang ditemukan
+            res.render('components/movie', {
+                title: movie.title,  // Menggunakan title film yang ditemukan
+                isNavbarPage: false,
+                isFooterPage: false,
+                movie: movie,        // Mengirimkan data film
+                episodes: episodeResults  // Mengirimkan data episode terkait
+            });
+        });
     });
 });
+
 
 // Route Seriess (Note: Make sure this is intentional, as `/seriess` might be a typo)
 app.get('/seriess', (req, res) => {
@@ -198,14 +227,14 @@ app.get('/updateadmin', (req, res) => {
 });
 
 // Routing Update Series Admin
-app.get('/updateseriesadmin', (req, res) => {
+app.get('/uploadvideo', (req, res) => {
     db.query('SELECT * FROM movie', (err, movies) => {
         if (err) return res.status(500).send('Internal Server Error');
         db.query('SELECT * FROM video', (err, videos) => {
             if (err) return res.status(500).send('Internal Server Error');
-            res.render('admin/updateseriesadmin', {
+            res.render('admin/uploadvideo', {
                 layout: "layouts/admin-layout.ejs",
-                title: "UpdateSeriesAdmin",
+                title: "uploadvideo",
                 isNavbarPage: true,
                 isFooterPage: true,
                 videos: videos,

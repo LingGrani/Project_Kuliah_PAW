@@ -1,55 +1,84 @@
 <link rel="stylesheet" href="/css/seriess.css">
-    <style>
-      .hero-section {
-        background: url('https://www.hollywoodreporter.com/wp-content/uploads/2016/06/conjuring_2_publicity_still_2_h_2016.jpg?w=1440&h=810&crop=1') no-repeat center center/cover;
-      }
-   </style>
-<div class="hero-section">
+
+<div class="hero-section" style="background: url('https://<%= movie.thumbnail %>') no-repeat center center/cover">
   <div class="overlay"></div>
   <div class="hero-content">
-    <h1>The Conjuring 2</h1>
+    <h1><%= title %></h1>
     <div class="movie-details">
-      <span>CBFC: U/A</span> | <span>Horror</span> | <span>2h 28m</span>
-      <div class="movie-buttons">
-        <button class="btn btn-primary">Watch Now</button>
-        <a href="/watchlist">
-          <button class="btn btn-secondary">Add Watchlist</button>
-        </a>
-      </div>
+      <span>CBFC: <%= movie.cbfc %></span> | <span><%= movie.genre %></span>
     </div>
-    <p>The film follows Ed and Lorraine Warren, renowned paranormal investigators, as they travel to Enfield, England, in 1977 to help the Hodgson family. The family is tormented by a series of disturbing supernatural events, centered around young Janet Hodgson, who appears to be possessed by the spirit of an old man named Bill Wilkins.</p>
+    <p><%= movie.description %></p>
   </div>
 </div>
 
 <div class="trending-section">
   <div class="container">
     <div class="d-flex justify-content-start mb-4">
-      <button class="btn btn-primary btn-sm me-2">Movie</button>
+      <button class="btn btn-primary btn-sm me-2">Episodes</button>
     </div>
-
-<div class="category-section">
-  <div class="container">
-    <h2>More Like This</h2>
-    <div class="category-row">
-      <div class="category-card"><img src="./assets/image2.jpg" alt="Action 1" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image3.jpg" alt="Action 2" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image4.jpg" alt="Action 3" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image5.jpg" alt="Action 4" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image6.jpg" alt="Action 5" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image1.jpg" alt="Action 6" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image2.jpg" alt="Action 7" class="img-fluid"></div>
+    <div class="mb-4">
+      <!-- Tempat video player -->
+      <div class="video-container">
+        <video id="videoPlayer" width="100%" controls>
+          <source id="videoSource" src="" type="video/*">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
-    <div class="category-row">
-      <div class="category-card"><img src="./assets/imageromance.jpg" alt="Romance 1" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image4.jpg" alt="Romance 2" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image5.jpg" alt="Romance 3" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image6.jpg" alt="Romance 4" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image1.jpg" alt="Romance 5" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image2.jpg" alt="Romance 6" class="img-fluid"></div>
-      <div class="category-card"><img src="./assets/image3.jpg" alt="Romance 7" class="img-fluid"></div>
+    <div class="category-roww" id="episode">
+      <% episodes.forEach(episode => { %>
+        <div class="col-md-2" data-videolink="<%= episode.videoLink %>">
+          <div class="card text-center">
+            <div class="position-relative">
+              <img src="<%= episode.thumbnail %>" class="card-img-top" alt="Episode <%= episode.episodeNumber %>">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Episode <%= episode.episodeNumber %> <%= episode.videoTitle %></h5>
+              <p>Duration: <%= episode.duration %></p>
+              <div class="episode-description">
+                <div class="progress-bar">
+                  <div class="progress" style="width: 70%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }); %>
     </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    // Ketika episode diklik, ganti video yang diputar
+    $('#episode .col-md-2').click(function() {
+      // Ambil video link dari data atribut
+      var videoLink = $(this).data('videolink');
+      
+      // Set src video ke video link yang dipilih
+      $('#videoSource').attr('src', videoLink);
+      // Perbarui video player dan mulai pemutaran
+      $('#videoPlayer')[0].load();
+      $('#videoPlayer')[0].play();
+    });
+
+    // Mengambil data film dari server (misalnya)
+    function PageLoad() {
+      $.ajax({
+        url: '/users/movie',
+        type: 'GET',
+        contentType: 'application/json',
+        success: function (movies) {
+          // Anda bisa menambahkan logika di sini jika perlu
+        },
+        error: function (error) {
+          console.error('Error adding task:', error.responseText);
+        }
+      });
+    }
+    PageLoad();
+  });
+</script>

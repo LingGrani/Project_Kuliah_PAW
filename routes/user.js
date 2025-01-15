@@ -5,11 +5,7 @@ const db = require('../database/db');
 
 router.get('/', (req, res) => {
   const randomMovieQuery = `
-    SELECT 
-      movieID, 
-      title, 
-      releaseYear, 
-      thumbnail 
+    SELECT * 
     FROM 
       Movie 
     ORDER BY 
@@ -118,21 +114,15 @@ router.get('/series', (req, res) => {
 
 router.get('/genre', (req, res) => {
   const query = `
-    SELECT 
-      g.genreName, 
-      m.title 
+    SELECT
+      movieID, 
+      genre, 
+      title,
+      thumbnail 
     FROM 
-      Genre g
-    INNER JOIN 
-      MovieGenre mg
-    ON 
-      g.genreID = mg.genreID
-    INNER JOIN 
-      Movie m
-    ON 
-      mg.movieID = m.movieID
+      movie
     ORDER BY 
-      g.genreName, m.title;
+      genre, title;
   `;
 
   db.query(query, (err, results) => {
@@ -142,24 +132,29 @@ router.get('/genre', (req, res) => {
       return;
     }
 
+    // Mengelompokkan film berdasarkan genre
     const groupedMovies = results.reduce((acc, row) => {
-      const { genreName, title } = row;
+      const {movieID, genre, title, thumbnail } = row;
 
-      if (!acc[genreName]) {
-        acc[genreName] = [];
+      if (!acc[genre]) {
+        acc[genre] = [];
       }
-      acc[genreName].push(title);
+      acc[genre].push(movieID, title, thumbnail);
 
       return acc;
     }, {});
 
-    const response = Object.entries(groupedMovies).map(([genre, movies]) => ({
-      genre,
-      movieList: movies
-    }));
+    // Membentuk format respons sesuai permintaan
+    const response = {
+      movieList: Object.entries(groupedMovies).map(([genre, movies]) => ({
+        genre,
+        movieList: movies,
+      }))
+    };
 
     res.json(response);
   });
 });
+
 
 module.exports = router;
