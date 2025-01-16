@@ -100,7 +100,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `email`, `password`) VALUES
-('linggrani', 'luthfiangger2510@gmail.com', '$2a$10$aRW1/DhfHoTMNaAA5Is8M.vFHny0AK7NeikwXA5RtYgDB1KAK56Q2');
+('me', 'me@mail.com', '$2a$10$aRW1/DhfHoTMNaAA5Is8M.vFHny0AK7NeikwXA5RtYgDB1KAK56Q2');
 
 -- --------------------------------------------------------
 

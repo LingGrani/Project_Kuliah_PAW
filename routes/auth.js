@@ -24,6 +24,15 @@ router.get('/login', (req, res) => {
     });
 });
 
+// Signup view route
+router.get('/signup', (req, res) => {
+    res.render('register', {
+        layout: 'layouts/auth',
+        title: "SignUp"
+    });
+});
+
+// Login Post Request
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
 
@@ -55,6 +64,39 @@ router.post('/login', (req, res) => {
 
             res.redirect('/');
         });
+    });
+});
+
+// Route Post SignUp 
+router.post('/signup', (req, res) => {
+    const { username, email, password } = req.body;
+
+    if (!username || !email || !password) {
+        return res.status(400).send('All fields are required');
+    }
+
+    // Hash the password
+    bcrypt.hash(password, 10, (err, hash) => {
+        if (err) {
+            return res.status(500).send('Error hashing password');
+        }
+
+        // Insert user into the database
+        db.query(
+            'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+            [username, email, hash],
+            (err, result) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).send('Error registering user');
+                }
+
+                // Save user ID in session
+                req.session.userId = result.insertId;
+
+                res.status(201).redirect('/');
+            }
+        );
     });
 });
 

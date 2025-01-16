@@ -60,14 +60,14 @@ app.get('/watchlist', (req, res) => {
     });
 });
 
-// Route Register
-app.get('/index', (req, res) => {
-    res.render('index', {
-        title: "Index",
-        isNavbarPage: false,
-        isFooterPage: false,
-    });
-});
+// Route Homepage
+// app.get('/index', (req, res) => {
+//     res.render('index', {
+//         title: "Index",
+//         isNavbarPage: false,
+//         isFooterPage: false,
+//     });
+// });
 
 // Route Series
 app.get('/series', (req, res) => {
@@ -277,8 +277,6 @@ app.get('/allmovie', (req, res) => {
     }) 
    
 });
-
-
 
 // Starting the app
 app.listen(port, () => {
