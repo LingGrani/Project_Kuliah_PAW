@@ -24,3 +24,7 @@ Project Pembuatan Website dari matakuliah Pengembangan Aplikasi Web (TI501)
 - Luthfi Angger Ramdhani (20220140137)
 - Muhamad Farhan (20220140139)
 - Muhammad Hariz Mudrik (20220140141)
+
+## Use Case
+
+![Image](https://github.com/user-attachments/assets/0d61aac0-7d64-4d88-b68f-c580541d4ecc)
