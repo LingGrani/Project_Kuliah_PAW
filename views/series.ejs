@@ -28,7 +28,9 @@ $(document).ready(function () {
                 console.log('Task successfully added:', movies);
                 for (var i = 0; i < movies.seriesList.length; i++) {         
                     list += `
+                    <a href="movie/${movies.seriesList[i].movieID}">
                         <img src="https://${movies.seriesList[i].thumbnail}" class="thumbnail" alt="${movies.seriesList[i].movieID}">
+                    </a>
                     `
                 }
                 document.getElementById('list').innerHTML = list

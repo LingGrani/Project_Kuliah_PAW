@@ -169,7 +169,7 @@
                           </div>
                           <p>${movies.randomMovie.description}</p>
                           <div class="movie-buttons">
-                            <button class="btn btn-primary">Watch Now</button>
+                            <a class="btn btn-primary" href=movie/${movies.randomMovie.movieID}>Watch Now</a>
                             <button class="btn btn-outline-light">More Info</button>
                           </div>
                         </div>
@@ -179,10 +179,10 @@
                     for (var i = 0; i < movies.series.length; i++) {
                       
                       list += `
-                      <div class="col-md-2">
+                      <div class="col-md-2" ">
                         <div class="card text-center">
                           <div class="position-relative">
-                            <a href="/seriess">
+                            <a href="/movie/${movies.series[i].movieID}">
                               <div class="number-overlay">${i}</div>
                               <img src="https://${movies.series[i].thumbnail}" class="card-img-top" alt="Movie 1">
                             </a>

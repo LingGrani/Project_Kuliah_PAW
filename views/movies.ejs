@@ -29,7 +29,10 @@ $(document).ready(function () {
                 console.log('Task successfully added:', movies);
                 for (var i = 0; i < movies.movieList.length; i++) {         
                     list += `
-                    <img src="https://${movies.movieList[i].thumbnail}" class="thumbnail" alt="${movies.movieList[i].movieID}">`
+                    <a href="movie/${movies.movieList[i].movieID}">
+                        <img src="https://${movies.movieList[i].thumbnail}" class="thumbnail" alt="${movies.movieList[i].movieID}">
+                    </a>
+                    `
                 }
                 document.getElementById('list').innerHTML = list
                 },

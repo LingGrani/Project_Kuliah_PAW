@@ -115,8 +115,8 @@ router.get('/series', (req, res) => {
 router.get('/genre', (req, res) => {
   const query = `
     SELECT
-      movieID, 
-      genre, 
+      movieID AS id,
+      genre,
       title,
       thumbnail 
     FROM 
@@ -134,12 +134,17 @@ router.get('/genre', (req, res) => {
 
     // Mengelompokkan film berdasarkan genre
     const groupedMovies = results.reduce((acc, row) => {
-      const {movieID, genre, title, thumbnail } = row;
+      const { id, genre, title, thumbnail } = row;
 
       if (!acc[genre]) {
         acc[genre] = [];
       }
-      acc[genre].push(movieID, title, thumbnail);
+
+      acc[genre].push({
+        id,
+        title,
+        thumbnail
+      });
 
       return acc;
     }, {});
@@ -155,6 +160,7 @@ router.get('/genre', (req, res) => {
     res.json(response);
   });
 });
+
 
 
 module.exports = router;
